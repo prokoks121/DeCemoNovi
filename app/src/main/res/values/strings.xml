@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">DeCemo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoicHJva29rczEyMSIsImEiOiJjazZpNXFvc2QwMWRhM25ubjZ1OTkzN25mIn0.7S8Fg_MGjKZnfOGl2NCaKQ</string>
+
+</resources>
