@@ -27,36 +27,34 @@ import com.mapbox.mapboxsdk.maps.Style
 import kotlin.collections.ArrayList
 
 class PocetnaMap(val context: Context, private val mapView: MapView) : PermissionsListener, OnRequestPermissionsResultCallback {
-    var listaLokala:ArrayList<Lokal> = arrayListOf()
-    set(value) {
-        field = value
-        markeri()
-    }
+    var listaLokala: ArrayList<Lokal> = arrayListOf()
+        set(value) {
+            field = value
+            markeri()
+        }
     private val listaLokalaZaPrikaz: ArrayList<MarkerOptions> = ArrayList()
     private lateinit var mapboxMaps: MapboxMap
     private lateinit var permissionsManager: PermissionsManager
-  //  private val currentTime by lazy { Calendar.getInstance().time }
+
+    //  private val currentTime by lazy { Calendar.getInstance().time }
     private var oldZoom = 12.0
 
     init {
         mapa()
     }
 
-
     private fun markeri() {
-
         listaLokalaZaPrikaz.clear()
         val iconF = IconFactory.getInstance(context)
         for (x in listaLokala) {
-            listaLokalaZaPrikaz.add(    when(x.vrsta){
-                "Kafic" ->  MarkerOptions().position(LatLng(x.lat,x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.coffee))
-                "Pab" ->  MarkerOptions().position(LatLng(x.lat,x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.beer))
-                else ->  MarkerOptions().position(LatLng(x.lat,x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.placeholder))
-
-            }  )
+            listaLokalaZaPrikaz.add(when (x.vrsta) {
+                "Kafic" -> MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.coffee))
+                "Pab" -> MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.beer))
+                else -> MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.placeholder))
+            })
         }
         if (this::mapboxMaps.isInitialized)
-        styleMap()
+            styleMap()
     }
 
     private fun mapa() {
@@ -65,12 +63,12 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
             mapboxMaps.uiSettings.isAttributionEnabled = false
             mapboxMaps.uiSettings.isLogoEnabled = false
             val position = CameraPosition.Builder()
-                .target(LatLng(44.786604, 20.4717838))
-                .zoom(12.0)
-                .build()
+                    .target(LatLng(44.786604, 20.4717838))
+                    .zoom(12.0)
+                    .build()
             mapboxMaps.cameraPosition = position
             mapboxMaps.setStyle(
-                Style.MAPBOX_STREETS
+                    Style.MAPBOX_STREETS
             ) { style: Style ->
                 enableLocationComponent(style)
                 mapboxMaps.addMarkers(listaLokalaZaPrikaz)
@@ -90,7 +88,6 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
                     oldZoom = curentZoom
                 }
                 mapboxMaps.setOnMarkerClickListener { marker: Marker ->
-
                     val imeLokala = marker.title
                     var id = 0
                     for (i in listaLokala.indices) {
@@ -99,8 +96,7 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
                         }
                     }
                     val lokal: Lokal = listaLokala[id]
-                    BottomView(lokal,context)
-
+                    BottomView(lokal, context)
                     true
                 }
             }
@@ -112,8 +108,8 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
         if (PermissionsManager.areLocationPermissionsGranted(context)) {
             val locationComponent = mapboxMaps.locationComponent
             locationComponent.activateLocationComponent(
-                LocationComponentActivationOptions.builder(context, loadedMapStyle)
-                    .build()
+                    LocationComponentActivationOptions.builder(context, loadedMapStyle)
+                            .build()
             )
             locationComponent.isLocationComponentEnabled = true
             locationComponent.cameraMode = CameraMode.TRACKING
@@ -123,21 +119,21 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
             permissionsManager.requestLocationPermissions(context as Activity)
         }
     }
+
     private fun locMap() {
         mapboxMaps.getStyle { loadedMapStyle: Style ->
             enableLocationComponent(
-                loadedMapStyle
+                    loadedMapStyle
             )
         }
     }
 
-
     private fun styleMap() {
-            mapboxMaps.getStyle {
-                mapboxMaps.clear()
-                mapboxMaps.addMarkers(listaLokalaZaPrikaz)
-            }
+        mapboxMaps.getStyle {
+            mapboxMaps.clear()
+            mapboxMaps.addMarkers(listaLokalaZaPrikaz)
         }
+    }
 
     override fun onExplanationNeeded(permissionsToExplain: List<String>) {
         Toast.makeText(context, "Dozvoljeno", Toast.LENGTH_LONG).show()
@@ -150,10 +146,11 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
             Toast.makeText(context, "Nije dozvoljeno", Toast.LENGTH_LONG).show()
         }
     }
+
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<String>,
+            grantResults: IntArray
     ) {
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
@@ -162,6 +159,4 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
         val position = CameraPosition.Builder().tilt(angle).build()
         mapboxMaps.animateCamera(CameraUpdateFactory.newCameraPosition(position), 2000)
     }
-
-
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,8 +10,8 @@
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:id="@+id/list_item1"
-    android:background="@drawable/lista_kafica_pozadina"
-   >
+    android:background="@drawable/lista_kafica_pozadina">
+
     <ImageView
         android:id="@+id/slikaLokalaL"
         android:layout_width="70dp"

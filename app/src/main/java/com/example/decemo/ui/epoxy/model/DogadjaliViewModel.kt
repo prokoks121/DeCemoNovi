@@ -14,41 +14,30 @@ import com.example.decemo.model.Dogadjaj
 import io.navendra.nachos.models.epoxy.KotlinHolder
 
 @EpoxyModelClass(layout = R.layout.epoxy_dogadjaji_item)
-
-abstract class DogadjaliViewModel: EpoxyModelWithHolder<DogadjaliViewModel.DogadjajiHolder>(){
+abstract class DogadjaliViewModel : EpoxyModelWithHolder<DogadjaliViewModel.DogadjajiHolder>() {
     @EpoxyAttribute
     lateinit var dogadjaj: Dogadjaj
-
     private val URL = "https://api.polovnitelefoni.net/slike/"
 
     @EpoxyAttribute
-    lateinit var context:Context
-
+    lateinit var context: Context
     override fun bind(holder: DogadjajiHolder) {
         super.bind(holder)
-
         holder.imeLokala.setText(dogadjaj.imeLokala)
         Glide.with(context)
-            .load(URL + dogadjaj.slika)
-            .optionalCircleCrop()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(holder.slikaLokala)
-
+                .load(URL + dogadjaj.slika)
+                .optionalCircleCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.slikaLokala)
     }
 
     inner class DogadjajiHolder : KotlinHolder() {
-
-        lateinit var  imeLokala: TextView
+        lateinit var imeLokala: TextView
         lateinit var slikaLokala: ImageView
-
-
         override fun bindView(itemView: View) {
             super.bindView(itemView)
             slikaLokala = itemView.findViewById(R.id.slikaLokala)
             imeLokala = itemView.findViewById(R.id.imeKafica)
-
         }
     }
-
-
 }

@@ -14,18 +14,12 @@ import com.example.decemo.ui.epoxy.controler.PretragaController
 import com.example.decemo.repository.Repository
 import com.example.decemo.ui.viewmodel.SearchViewModel
 
-
 class SearchFragment : Fragment() {
-
-    private lateinit var viewModel:SearchViewModel
-
-
+    private lateinit var viewModel: SearchViewModel
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-
-
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
@@ -35,25 +29,18 @@ class SearchFragment : Fragment() {
         val recyclerViewLokali = view.findViewById<EpoxyRecyclerView>(R.id.listaLokala)
         val controler = PretragaController(requireContext())
         val swipRefresh = view.findViewById<SwipeRefreshLayout>(R.id.refresh)
-
         recyclerViewLokali.setController(controler)
         controler.listaVrteLokala = Repository.listaVrstaLokala
-
         viewModel.listaLokala.observe(viewLifecycleOwner, Observer {
-              controler.listaLokala= it
+            controler.listaLokala = it
         })
-
         viewModel.listaDogadjaja.observe(viewLifecycleOwner, Observer {
-           controler.listaDogadjaj = it
+            controler.listaDogadjaj = it
         })
-
         swipRefresh.setOnRefreshListener {
             viewModel.getListuKafica()
             viewModel.getListuDogadjaja()
             swipRefresh.isRefreshing = false
         }
-
-
     }
-
 }

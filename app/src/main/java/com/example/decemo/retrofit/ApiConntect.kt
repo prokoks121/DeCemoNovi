@@ -9,6 +9,7 @@ import retrofit2.http.GET
 interface ApiConntect {
     @GET("api.php")
     fun getListuLokala(): Call<ArrayList<Lokal>>
+
     @GET("api-dogadjaji.php")
     fun getListuDogadjaja(): Call<ArrayList<Dogadjaj>>
 }

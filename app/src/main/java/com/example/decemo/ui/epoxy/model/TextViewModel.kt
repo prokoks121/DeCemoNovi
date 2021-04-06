@@ -10,21 +10,18 @@ import com.example.decemo.R
 
 @EpoxyModelClass(layout = R.layout.epoxy_text_item)
 
-abstract class TextViewModel:EpoxyModelWithHolder<TextViewModel.ViewHolder>(){
+abstract class TextViewModel : EpoxyModelWithHolder<TextViewModel.ViewHolder>() {
     @EpoxyAttribute
-    lateinit var text:String
+    lateinit var text: String
     override fun bind(holder: ViewHolder) {
         super.bind(holder)
-
         holder.text.text = text
-
     }
 
-    class ViewHolder:EpoxyHolder() {
-        lateinit var text:TextView
+    class ViewHolder : EpoxyHolder() {
+        lateinit var text: TextView
         override fun bindView(itemView: View) {
             text = itemView.findViewById(R.id.text_epoxy_pretraga)
         }
-
     }
 }

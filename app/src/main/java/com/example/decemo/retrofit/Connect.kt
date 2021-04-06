@@ -4,19 +4,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Connect {
-
     const val url = "https://www.api.polovnitelefoni.net/"
-
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create())
-
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
     }
     val retrofitApiInterface by lazy {
-        retrofit
-            .build()
-            .create(ApiConntect::class.java)
+        retrofit.build()
+                .create(ApiConntect::class.java)
     }
 
 }

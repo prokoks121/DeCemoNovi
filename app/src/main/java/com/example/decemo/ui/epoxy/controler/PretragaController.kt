@@ -10,11 +10,8 @@ import com.example.decemo.model.Lokal
 import com.example.decemo.model.VrstaLokala
 
 
-class PretragaController(val context: Context): EpoxyController() {
-
-
-
-    var listaDogadjaj:ArrayList<Dogadjaj> = arrayListOf()
+class PretragaController(val context: Context) : EpoxyController() {
+    var listaDogadjaj: ArrayList<Dogadjaj> = arrayListOf()
         set(value) {
             field = value
             requestModelBuild()
@@ -24,50 +21,42 @@ class PretragaController(val context: Context): EpoxyController() {
             field = value
             requestModelBuild()
         }
-
-    var listaLokala:ArrayList<Lokal> = arrayListOf()
+    var listaLokala: ArrayList<Lokal> = arrayListOf()
         set(value) {
             field = value
             requestModelBuild()
         }
-    override fun buildModels() {
 
+    override fun buildModels() {
         pretragaView {
             id("Pretraga")
-
         }
-
         val itemModels = listaDogadjaj.map { item ->
-
             DogadjaliViewModel_()
                     .id(item.id)
                     .dogadjaj(item)
                     .context(context)
-
         }
-            carousel {
-                id("Dogadjaji")
-                models(itemModels)
-            }
-
+        carousel {
+            id("Dogadjaji")
+            models(itemModels)
+        }
         val vrsteLokalaItems = listaVrteLokala.map {
             VrstaLokalaViewModel_()
                     .id(it.id)
                     .vrstaLokala(it)
-                    .myListener(View.OnClickListener {view->
-                      //  changeStatus(it.id)
+                    .myListener(View.OnClickListener { view ->
+                        //  changeStatus(it.id)
                     })
         }
         carousel {
             id("vrsteLokala")
             models(vrsteLokalaItems)
         }
-
         textView {
             id("id_lokali")
             text("Lokali")
         }
-
         listaLokala.forEach {
             lokaliView {
                 id(it.id)
@@ -75,20 +64,12 @@ class PretragaController(val context: Context): EpoxyController() {
                 context(context)
             }
         }
-
-
-
     }
 
-
-
-    private fun changeStatus(id:Int){
-
-       for (i in listaVrteLokala.indices){
-           listaVrteLokala[i].status = listaVrteLokala[i].id == id
-       }
+    private fun changeStatus(id: Int) {
+        for (i in listaVrteLokala.indices) {
+            listaVrteLokala[i].status = listaVrteLokala[i].id == id
+        }
         requestModelBuild()
     }
-
-
 }
