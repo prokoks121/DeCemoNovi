@@ -10,7 +10,7 @@ import com.example.decemo.model.Lokal
 import com.example.decemo.model.VrstaLokala
 
 
-class PretragaController(val context: Context) : EpoxyController() {
+class PretragaController(val context: Context,val callback:changeStatus) : EpoxyController() {
     var listaDogadjaj: ArrayList<Dogadjaj> = arrayListOf()
         set(value) {
             field = value
@@ -26,7 +26,6 @@ class PretragaController(val context: Context) : EpoxyController() {
             field = value
             requestModelBuild()
         }
-
     override fun buildModels() {
         pretragaView {
             id("Pretraga")
@@ -41,12 +40,12 @@ class PretragaController(val context: Context) : EpoxyController() {
             id("Dogadjaji")
             models(itemModels)
         }
-        val vrsteLokalaItems = listaVrteLokala.map {
+        val vrsteLokalaItems = listaVrteLokala.map {lokal->
             VrstaLokalaViewModel_()
-                    .id(it.id)
-                    .vrstaLokala(it)
-                    .myListener(View.OnClickListener { view ->
-                        //  changeStatus(it.id)
+                    .id(lokal.id)
+                    .vrstaLokala(lokal)
+                    .myListener(View.OnClickListener {
+                      callback.click(lokal.id,lokal.vrsta)
                     })
         }
         carousel {
@@ -62,14 +61,15 @@ class PretragaController(val context: Context) : EpoxyController() {
                 id(it.id)
                 lokal(it)
                 context(context)
+                myListener(View.OnClickListener { view->
+                    callback.onLokalClick(it)
+                })
             }
         }
     }
+   interface changeStatus {
+      fun click(id:Int,vrsta:String)
+       fun onLokalClick(lokal:Lokal)
+   }
 
-    private fun changeStatus(id: Int) {
-        for (i in listaVrteLokala.indices) {
-            listaVrteLokala[i].status = listaVrteLokala[i].id == id
-        }
-        requestModelBuild()
-    }
 }

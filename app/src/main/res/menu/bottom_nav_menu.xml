@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/sss"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:icon="@drawable/korisnik"
+        android:title="Korisnik" />
     <item
         android:id="@+id/home2"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="Pocetna" />
+        android:icon="@drawable/mapa"
+        android:title="Početna" />
     <item
         android:id="@+id/search"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_baseline_local_cafe_24"
         android:title="Pretraga" />
 </menu>

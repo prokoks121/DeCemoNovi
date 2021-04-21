@@ -14,5 +14,14 @@
         android:id="@+id/search"
         android:name="com.example.decemo.ui.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_search_to_lokalFragment"
+            app:destination="@id/lokalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lokalFragment"
+        android:name="com.example.decemo.ui.view.LokalFragment"
+        android:label="fragment_lokal"
+        tools:layout="@layout/fragment_lokal" />
 </navigation>

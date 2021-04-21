@@ -14,11 +14,9 @@ import com.example.decemo.model.VrstaLokala
 @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.epoxy_vrsta_lokala_item)
 abstract class VrstaLokalaViewModel : EpoxyModelWithHolder<VrstaLokalaViewModel.ViewHolder>() {
-    @EpoxyAttribute
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var vrstaLokala: VrstaLokala
 
-    @EpoxyAttribute
-    var status: Boolean = false
 
     @EpoxyAttribute
     var myListener: View.OnClickListener? = null

@@ -10,5 +10,6 @@ data class Lokal(
         val slika: String,
         val telefon: String,
         val usluge: ArrayList<String>,
-        val vrsta: String
-)
+        val vrsta: String,
+        val galerija: ArrayList<String>
+        )
