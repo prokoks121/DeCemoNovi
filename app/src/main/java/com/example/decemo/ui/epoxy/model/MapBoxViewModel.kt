@@ -29,7 +29,7 @@ abstract class MapBoxViewModel: EpoxyModelWithHolder<MapBoxViewModel.ViewHolder>
     lateinit var ime: String
     override fun bind(view: MapBoxViewModel.ViewHolder) {
         super.bind(view)
-view.mapView.getMapAsync { mapboxMap: MapboxMap ->
+    view.mapView.getMapAsync { mapboxMap: MapboxMap ->
     mapboxMap.uiSettings.isAttributionEnabled = false
     mapboxMap.uiSettings.isLogoEnabled = false
     val position = CameraPosition.Builder()
@@ -45,19 +45,14 @@ view.mapView.getMapAsync { mapboxMap: MapboxMap ->
                 .position(LatLng(lat!!, lon!!))
                 .title(ime)
         )
+         }
     }
-}
-
     }
 
     class ViewHolder : EpoxyHolder() {
         lateinit var mapView: MapView
         override fun bindView(itemView: View) {
             mapView = itemView.findViewById(R.id.mapView)
-
-
-
-
         }
     }
 }

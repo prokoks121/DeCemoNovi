@@ -17,4 +17,13 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <style name="SelectedMenuLokal">
+        <item name="android:textColor">@color/naran</item>
+        <item name="android:background">@drawable/bottom_border_selected</item>
+    </style>
+    <style name="NonSelectedMenuLokal">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bottom_border</item>
+    </style>
+
 </resources>

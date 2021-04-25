@@ -24,7 +24,9 @@ import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
-import kotlin.collections.ArrayList
+import com.mapbox.mapboxsdk.style.layers.CircleLayer
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory
+
 
 class PocetnaMap(val context: Context, private val mapView: MapView) : PermissionsListener, OnRequestPermissionsResultCallback {
     var listaLokala: ArrayList<Lokal> = arrayListOf()
@@ -35,14 +37,10 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
     private val listaLokalaZaPrikaz: ArrayList<MarkerOptions> = ArrayList()
     private lateinit var mapboxMaps: MapboxMap
     private lateinit var permissionsManager: PermissionsManager
-
-    //  private val currentTime by lazy { Calendar.getInstance().time }
     private var oldZoom = 12.0
-
     init {
         mapa()
     }
-
     private fun markeri() {
         listaLokalaZaPrikaz.clear()
         val iconF = IconFactory.getInstance(context)
@@ -56,7 +54,7 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
         if (this::mapboxMaps.isInitialized)
             styleMap()
     }
-
+    @SuppressLint("ResourceAsColor")
     private fun mapa() {
         mapView.getMapAsync { mapboxMap: MapboxMap? ->
             mapboxMaps = mapboxMap!!
@@ -71,6 +69,13 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
                     Style.MAPBOX_STREETS
             ) { style: Style ->
                 enableLocationComponent(style)
+                val circleLayer = CircleLayer("layer-id", "source-id")
+
+                circleLayer.setProperties(
+                        PropertyFactory.circleRadius(18f),
+                        PropertyFactory.circleColor(R.color.black)
+                )
+                style.addLayer(circleLayer);
                 mapboxMaps.addMarkers(listaLokalaZaPrikaz)
                 mapboxMaps.isAllowConcurrentMultipleOpenInfoWindows = true
                 mapboxMaps.addOnCameraIdleListener {
@@ -102,7 +107,6 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
             }
         }
     }
-
     @SuppressLint("MissingPermission")
     private fun enableLocationComponent(loadedMapStyle: Style) {
         if (PermissionsManager.areLocationPermissionsGranted(context)) {

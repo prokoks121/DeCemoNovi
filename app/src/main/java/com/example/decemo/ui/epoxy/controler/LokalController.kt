@@ -2,37 +2,55 @@ package com.example.decemo.ui.epoxy.controler
 
 import android.R
 import android.content.Context
-import com.airbnb.epoxy.CarouselModel_
-import com.airbnb.epoxy.Typed2EpoxyController
-import com.airbnb.epoxy.TypedEpoxyController
-import com.airbnb.epoxy.carousel
+import android.view.View
+import com.airbnb.epoxy.*
 import com.example.decemo.model.Lokal
 import com.example.decemo.ui.epoxy.model.*
+import kotlin.properties.Delegates
 
-class LokalController : Typed2EpoxyController<Lokal, Context>() {
-    override fun buildModels(lokal: Lokal?, context:Context?) {
+class LokalController(val callBack: CallBack,val context: Context) : EpoxyController() {
+
+    var provera = true
+        set(value) {
+            field = value
+            requestModelBuild()
+        }
+    var lokal:Lokal? = null
+    set(value) {
+        field = value
+        requestModelBuild()
+    }
+
+    override fun buildModels() {
 
        logoLokalaView {
            id("Logo")
            img(lokal!!.slika)
-           context(context!!)
+           context(context)
 
        }
 
         imeLokalaView {
             id("ime lokala")
             imeLokala(lokal!!.ime)
-            vrstaLokala(lokal.vrsta)
+            vrstaLokala(lokal!!.vrsta)
 
         }
+        MeniViewModel_()
+                .id("meni")
+                .myListener(View.OnClickListener {
+              callBack.hide(it)
+            }).addTo(this)
 
-        mapBoxView {
-            id("map box")
-            context(context!!)
-            lat(lokal!!.lat)
-            lon(lokal.long)
-            ime(lokal.ime)
-        }
+        val map = MapBoxViewModel_ ()
+                .id("map box")
+                .context(context!!)
+                .lat(lokal!!.lat)
+                .lon(lokal!!.long)
+                .ime(lokal!!.ime)
+
+        map.addIf(provera,this)
+
         var i = 0
         val galerija = lokal!!.galerija.map {
             GalerijaViewModel_().id(i++)
@@ -43,13 +61,10 @@ class LokalController : Typed2EpoxyController<Lokal, Context>() {
     val model = CarouselModel_()
         .id("Galerija")
         .models(galerija)
-
-        model.addTo(this)
-        model.hide()
-
-
-
-
+        model.addIf(!provera,this)
     }
 
+    interface CallBack{
+        fun hide(view:View)
+    }
 }
