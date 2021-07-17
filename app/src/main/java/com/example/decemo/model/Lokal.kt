@@ -1,5 +1,8 @@
 package com.example.decemo.model
 
+import java.io.Serializable
+
+
 data class Lokal(
         val adresa: String,
         val id: Int,
@@ -12,4 +15,5 @@ data class Lokal(
         val usluge: ArrayList<String>,
         val vrsta: String,
         val galerija: ArrayList<String>
-        )
+        ):Serializable
+

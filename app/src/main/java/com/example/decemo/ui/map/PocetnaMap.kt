@@ -5,6 +5,7 @@ package com.example.decemo.ui.map
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
 import com.example.decemo.R
@@ -28,7 +29,7 @@ import com.mapbox.mapboxsdk.style.layers.CircleLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 
 
-class PocetnaMap(val context: Context, private val mapView: MapView) : PermissionsListener, OnRequestPermissionsResultCallback {
+class PocetnaMap(val context: Context, val view: View, private val mapView: MapView) : PermissionsListener, OnRequestPermissionsResultCallback {
     var listaLokala: ArrayList<Lokal> = arrayListOf()
         set(value) {
             field = value
@@ -101,7 +102,7 @@ class PocetnaMap(val context: Context, private val mapView: MapView) : Permissio
                         }
                     }
                     val lokal: Lokal = listaLokala[id]
-                    BottomView(lokal, context)
+                    BottomView(lokal,view, context)
                     true
                 }
             }

@@ -1,75 +1,74 @@
 package com.example.decemo.ui.epoxy.controler
 
-import android.content.Context
-import android.util.Log
 import android.view.View
 import com.airbnb.epoxy.*
 import com.example.decemo.ui.epoxy.model.*
-import com.example.decemo.model.Dogadjaj
 import com.example.decemo.model.Lokal
-import com.example.decemo.model.VrstaLokala
+import com.example.decemo.ui.view.dataForController
 
 
-class PretragaController(val context: Context,val callback:changeStatus) : EpoxyController() {
-    var listaDogadjaj: ArrayList<Dogadjaj> = arrayListOf()
-        set(value) {
-            field = value
-            requestModelBuild()
-        }
-    var listaVrteLokala: ArrayList<VrstaLokala> = arrayListOf()
-        set(value) {
-            field = value
-            requestModelBuild()
-        }
-    var listaLokala: ArrayList<Lokal> = arrayListOf()
-        set(value) {
-            field = value
-            requestModelBuild()
-        }
-    override fun buildModels() {
+class PretragaController() : TypedEpoxyController<dataForController>() {
+    override fun buildModels(data: dataForController?) {
         pretragaView {
             id("Pretraga")
         }
-        val itemModels = listaDogadjaj.map { item ->
-            DogadjaliViewModel_()
-                    .id(item.id)
-                    .dogadjaj(item)
-                    .context(context)
+        val itemModels =  data?.let {
+            it.dogadjaji.map  { item ->
+                DogadjaliViewModel_()
+                        .id(item.id)
+                        .dogadjaj(item)
+                        .context(data.context)
+            }
         }
-        carousel {
-            id("Dogadjaji")
-            models(itemModels)
+        itemModels?.let {
+            carousel {
+                id("Dogadjaji")
+                models(it)
+            }
         }
-        val vrsteLokalaItems = listaVrteLokala.map {lokal->
-            VrstaLokalaViewModel_()
-                    .id(lokal.id)
-                    .vrstaLokala(lokal)
-                    .myListener(View.OnClickListener {
-                      callback.click(lokal.id,lokal.vrsta)
-                    })
+
+
+        val vrsteLokalaItems = data?.let {
+            it.listaVrteLokala.map {lokal->
+                VrstaLokalaViewModel_()
+                        .id(lokal.id)
+                        .vrstaLokala(lokal)
+                        .myListener(View.OnClickListener {
+                            data.callBack.click(lokal.id,lokal.vrsta)
+                        })
+            }
         }
-        carousel {
-            id("vrsteLokala")
-            models(vrsteLokalaItems)
+        vrsteLokalaItems?.let {
+            carousel {
+                id("vrsteLokala")
+                models(it)
+            }
         }
+
         textView {
             id("id_lokali")
             text("Lokali")
         }
-        listaLokala.forEach {
-            lokaliView {
-                id(it.id)
-                lokal(it)
-                context(context)
-                myListener(View.OnClickListener { view->
-                    callback.onLokalClick(it)
-                })
+
+        data?.let {
+            it.lokali.forEach {
+                lokaliView {
+                    id(it.id)
+                    lokal(it)
+                    context(data.context)
+                    myListener(View.OnClickListener { view->
+                        data.callBack.onLokalClick(it)
+                    })
+                }
             }
         }
     }
+
    interface changeStatus {
       fun click(id:Int,vrsta:String)
        fun onLokalClick(lokal:Lokal)
    }
+
+
 
 }

@@ -9,19 +9,27 @@
         android:id="@+id/home2"
         android:name="com.example.decemo.ui.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home2_to_lokalFragment"
+            app:destination="@id/lokalFragment" />
+    </fragment>
     <fragment
         android:id="@+id/search"
         android:name="com.example.decemo.ui.view.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_search_to_lokalFragment"
+            android:id="@+id/action_search_to_lokalFragment2"
             app:destination="@id/lokalFragment" />
     </fragment>
     <fragment
         android:id="@+id/lokalFragment"
         android:name="com.example.decemo.ui.view.LokalFragment"
         android:label="fragment_lokal"
-        tools:layout="@layout/fragment_lokal" />
+        tools:layout="@layout/fragment_lokal" >
+        <argument
+            android:name="Lokal"
+            app:argType="com.example.decemo.model.Lokal" />
+    </fragment>
 </navigation>

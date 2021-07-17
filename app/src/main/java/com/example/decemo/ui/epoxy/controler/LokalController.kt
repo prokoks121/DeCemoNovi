@@ -1,14 +1,14 @@
 package com.example.decemo.ui.epoxy.controler
 
-import android.R
 import android.content.Context
+import android.util.Log
 import android.view.View
 import com.airbnb.epoxy.*
+import com.example.decemo.R
 import com.example.decemo.model.Lokal
 import com.example.decemo.ui.epoxy.model.*
-import kotlin.properties.Delegates
 
-class LokalController(val callBack: CallBack,val context: Context) : EpoxyController() {
+class LokalController(val callBack: CallBack,val context: Context) : EpoxyController(), RadnoVremeModelGroup.callBack{
 
     var provera = true
         set(value) {
@@ -21,11 +21,17 @@ class LokalController(val callBack: CallBack,val context: Context) : EpoxyContro
         requestModelBuild()
     }
 
+     var showAll:Boolean = false
+     override fun onClick() {
+         showAll = !showAll
+         requestModelBuild()
+         Log.d("Provera","Provera")
+     }
     override fun buildModels() {
 
        logoLokalaView {
            id("Logo")
-           img(lokal!!.slika)
+           img(lokal?.slika)
            context(context)
 
        }
@@ -44,7 +50,7 @@ class LokalController(val callBack: CallBack,val context: Context) : EpoxyContro
 
         val map = MapBoxViewModel_ ()
                 .id("map box")
-                .context(context!!)
+                .context(context)
                 .lat(lokal!!.lat)
                 .lon(lokal!!.long)
                 .ime(lokal!!.ime)
@@ -54,15 +60,54 @@ class LokalController(val callBack: CallBack,val context: Context) : EpoxyContro
         var i = 0
         val galerija = lokal!!.galerija.map {
             GalerijaViewModel_().id(i++)
-                    .context(context!!)
+                    .context(context)
                     .url(it)
         } as ArrayList
+
+
 
     val model = CarouselModel_()
         .id("Galerija")
         .models(galerija)
         model.addIf(!provera,this)
+
+      /*  radnoVremeView {
+            id("RadnoVreme")
+            list(lokal?.radno)
+            callBack(this@LokalController)
+            showAll(showAll)
+        }*/
+    val data:RadnoVremeModelGroup.data = RadnoVremeModelGroup.data(this@LokalController,lokal?.radno,showAll)
+      add(RadnoVremeModelGroup(data))
+
+    lokalUslugeView {
+        id("Adresa")
+        type(lokal?.adresa)
+        icon(R.drawable.ic_maps_and_flags)
     }
+        lokalUslugeView {
+            id("Telefon")
+            type(lokal?.telefon)
+            icon(R.drawable.telefon)
+        }
+
+        var j = 0
+        lokal?.let {
+            it.usluge.forEach {
+                lokalUslugeView {
+                    id(j++)
+                    type(it)
+                    icon(R.drawable.ic_check)
+
+                }
+            }
+        }
+
+
+    }
+
+
+
 
     interface CallBack{
         fun hide(view:View)

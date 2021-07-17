@@ -18,6 +18,5 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setupWithNavController(navController)
         Repository.getLokali()
         Repository.getDogadjaje()
-        //komentar
     }
 }

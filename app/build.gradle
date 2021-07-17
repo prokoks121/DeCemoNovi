@@ -2,7 +2,10 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
+
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 
 android {
     compileSdkVersion 30
@@ -53,24 +56,16 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-
     def lifecycle_version = "2.2.0"
-    // - - ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    // - - LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-
-
     implementation "com.squareup.retrofit2:retrofit:2.2.0"
     implementation "com.squareup.retrofit2:converter-gson:2.2.0"
-
     implementation 'com.github.bumptech.glide:glide:4.12.0'
-
     def epoxyVersion = "4.4.4"
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
-
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.5.0'
+
 
 }

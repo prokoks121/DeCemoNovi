@@ -1,8 +1,9 @@
 package com.example.decemo.ui.epoxy.model
 
 import android.content.Context
+import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageView
+import android.view.View.OnTouchListener
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
@@ -32,6 +33,8 @@ abstract class MapBoxViewModel: EpoxyModelWithHolder<MapBoxViewModel.ViewHolder>
     view.mapView.getMapAsync { mapboxMap: MapboxMap ->
     mapboxMap.uiSettings.isAttributionEnabled = false
     mapboxMap.uiSettings.isLogoEnabled = false
+
+
     val position = CameraPosition.Builder()
         .target(LatLng(lat!!, lon!!))
         .zoom(13.5)
@@ -53,6 +56,7 @@ abstract class MapBoxViewModel: EpoxyModelWithHolder<MapBoxViewModel.ViewHolder>
         lateinit var mapView: MapView
         override fun bindView(itemView: View) {
             mapView = itemView.findViewById(R.id.mapView)
+
         }
     }
 }

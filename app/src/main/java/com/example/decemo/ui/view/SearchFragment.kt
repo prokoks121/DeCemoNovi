@@ -1,7 +1,7 @@
 package com.example.decemo.ui.view
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,46 +12,50 @@ import androidx.navigation.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.decemo.R
+import com.example.decemo.model.Dogadjaj
 import com.example.decemo.model.Lokal
 import com.example.decemo.model.VrstaLokala
 import com.example.decemo.ui.epoxy.controler.PretragaController
 import com.example.decemo.repository.Repository
-import com.example.decemo.ui.viewmodel.LokalViewModel
 import com.example.decemo.ui.viewmodel.SearchViewModel
 
 class SearchFragment : Fragment(), PretragaController.changeStatus {
     private lateinit var viewModel: SearchViewModel
-    private lateinit var lokalViewModel: LokalViewModel
-  //  private lateinit var view:View
-
     private lateinit var controler:PretragaController
+    private lateinit var data:dataForController
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
-        lokalViewModel = ViewModelProvider(requireActivity()).get(LokalViewModel::class.java)
+        data = dataForController(arrayListOf(), arrayListOf(),requireContext(),this, Repository.listaVrstaLokala)
         setEpoxy(view)
         setObservers()
         setRefresh(view)
     }
+
     override fun click(id: Int, vrsta: String) {
         Repository.listaVrstaLokala.forEach {
             it.status = id == it.id
         }
         filterList(vrsta,viewModel.listaLokala.value!!)
-        controler.requestModelBuild()
     }
 
     override fun onLokalClick(lokal: Lokal) {
-        lokalViewModel.setLokal(lokal)
-        requireView().findNavController().navigate(R.id.action_search_to_lokalFragment)
+        val action = SearchFragmentDirections.actionSearchToLokalFragment2(lokal)
+        requireView().findNavController().navigate(action)
+    }
 
+    fun currentTypeLokal():String{
+        Repository.listaVrstaLokala.forEach {
+            if(it.status)
+                return it.vrsta
+        }
+        return Repository.listaVrstaLokala.get(0).vrsta
     }
 
     fun filterList(vrsta:String, list:ArrayList<Lokal>){
@@ -60,23 +64,28 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
             if (it.vrsta == vrsta)
                 filtriranaLista.add(it)
         }
-        controler.listaLokala = filtriranaLista
+       data.lokali = filtriranaLista
+        controler.setData(data)
     }
 
     private fun setObservers(){
         viewModel.listaLokala.observe(viewLifecycleOwner, Observer {
-            controler.listaLokala = it
+            filterList(currentTypeLokal(), it)
         })
+
         viewModel.listaDogadjaja.observe(viewLifecycleOwner, Observer {
-            controler.listaDogadjaj = it
+            data.dogadjaji = it
+            controler.setData(data)
         })
     }
+
     private fun setEpoxy(view:View){
         val recyclerViewLokali = view.findViewById<EpoxyRecyclerView>(R.id.listaLokala)
-        controler = PretragaController(requireContext(), this)
+        controler = PretragaController()
         recyclerViewLokali.setController(controler)
-        controler.listaVrteLokala = Repository.listaVrstaLokala
+       controler.setData(data)
     }
+
     private fun setRefresh(view:View){
         val swipRefresh = view.findViewById<SwipeRefreshLayout>(R.id.refresh)
         swipRefresh.setOnRefreshListener {
@@ -85,6 +94,12 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
             swipRefresh.isRefreshing = false
         }
     }
-
-
 }
+
+data class dataForController(
+        var lokali:ArrayList<Lokal>,
+        var dogadjaji: ArrayList<Dogadjaj>,
+        var context:Context,
+        var callBack:PretragaController.changeStatus,
+        var listaVrteLokala: ArrayList<VrstaLokala>
+)

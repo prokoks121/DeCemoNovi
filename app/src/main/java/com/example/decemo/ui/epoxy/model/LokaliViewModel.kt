@@ -19,6 +19,7 @@ abstract class LokaliViewModel : EpoxyModelWithHolder<LokaliViewModel.ViewHolder
     lateinit var context: Context
     @EpoxyAttribute
     var myListener: View.OnClickListener? = null
+
     @EpoxyAttribute
     lateinit var lokal: Lokal
     override fun bind(view: ViewHolder) {
