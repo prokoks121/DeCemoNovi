@@ -146,7 +146,6 @@ class StoryFragment : Fragment() {
     data class Data(
             var dogadjaj: ArrayList<ArrayList<Dogadjaj>>,
             var activity: Activity,
-    var recyclerView: EpoxyRecyclerView
     )
 
     class StoryEpoxyController:TypedEpoxyController<Data>(){
