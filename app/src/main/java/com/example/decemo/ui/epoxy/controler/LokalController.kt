@@ -57,6 +57,7 @@ class LokalController(val callBack: CallBack,val context: Context) : EpoxyContro
 
         map.addIf(provera,this)
 
+
         var i = 0
         val galerija = lokal!!.galerija.map {
             GalerijaViewModel_().id(i++)

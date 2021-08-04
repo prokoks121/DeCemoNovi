@@ -1,5 +1,6 @@
 package com.example.decemo.ui.epoxy.model
 
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -13,8 +14,20 @@ import io.navendra.nachos.models.epoxy.KotlinHolder
 abstract class MeniViewModel: EpoxyModelWithHolder<MeniViewModel.ViewHolder>() {
     @EpoxyAttribute
     lateinit var myListener:View.OnClickListener
+    @EpoxyAttribute
+     var check: Boolean = true
+
     override fun bind(holder: ViewHolder) {
         super.bind(holder)
+        if (check){
+            holder.mapa.setTextColor(Color.parseColor("#FF5B16"))
+            holder.galerija.setTextColor(Color.parseColor("#FFFFFF"))
+
+        }else{
+            holder.galerija.setTextColor(Color.parseColor("#FF5B16"))
+            holder.mapa.setTextColor(Color.parseColor("#FF5B16"))
+
+        }
         holder.galerija.setOnClickListener(myListener)
         holder.mapa.setOnClickListener(myListener)
 

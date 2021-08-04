@@ -50,6 +50,11 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
         requireView().findNavController().navigate(action)
     }
 
+    override fun onDogadjajTouch(dogadjaj: Dogadjaj,position:Int) {
+        val action = SearchFragmentDirections.actionSearchToStoryFragment(data.dogadjaji.toTypedArray(),position)
+        requireView().findNavController().navigate(action)
+    }
+
     fun currentTypeLokal():String{
         Repository.listaVrstaLokala.forEach {
             if(it.status)

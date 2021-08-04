@@ -27,11 +27,12 @@ abstract class LokalRadnoVremeViewModel: EpoxyModelWithHolder<LokalRadnoVremeVie
     lateinit var clickListener: View.OnClickListener
 
     private val currentTime: Date = Calendar.getInstance().getTime()
-    private val currentDay: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+    private var currentDay: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
 
     override fun bind(holder: ViewHolder) {
         super.bind(holder)
-
+        if(currentDay == 1)
+            currentDay = 8
         holder.textRadnoVreme.text = type
         if (day == currentDay){
         if (daLiRadi()){
@@ -56,8 +57,6 @@ abstract class LokalRadnoVremeViewModel: EpoxyModelWithHolder<LokalRadnoVremeVie
         }
         holder.textDay.text = dayStr
         holder.body.setOnClickListener(clickListener)
-        Log.d("Provera",currentDay.toString()+" " + day.toString() + " " + currentTime)
-
     }
 
 

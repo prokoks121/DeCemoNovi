@@ -24,10 +24,12 @@ class BottomView(private val kafic: Lokal, val view: View, val context: Context)
     private val sheet: BottomSheetDialog = BottomSheetDialog(context, R.style.SheetDialog)
     private val url = "https://api.polovnitelefoni.net/slike/"
     private val currentTime: Date = Calendar.getInstance().getTime()
-    private val currentDay: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+    private var currentDay: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
     init {
         sheet.setContentView(R.layout.bottom_shape)
         sheet.setCanceledOnTouchOutside(true)
+        if(currentDay == 1)
+            currentDay = 8
         setView()
     }
 
@@ -76,8 +78,8 @@ class BottomView(private val kafic: Lokal, val view: View, val context: Context)
         val h: Int = currentTime.getHours()
         val m: Int = currentTime.getMinutes()
         val hm = h + m * 0.01
-        val listaVremena = kafic.radno.get(currentDay-2).split("-")
         try {
+            val listaVremena = kafic.radno.get(currentDay-2).split("-")
             val hm1 = listaVremena[0].toInt().toDouble()
             val hm2 = listaVremena[1].toInt().toDouble()
             return if (hm1 <= hm && hm2 > hm) {

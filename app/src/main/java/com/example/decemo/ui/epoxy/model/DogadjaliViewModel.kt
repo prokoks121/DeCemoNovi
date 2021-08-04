@@ -1,5 +1,6 @@
 package com.example.decemo.ui.epoxy.model
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
@@ -17,10 +18,15 @@ import io.navendra.nachos.models.epoxy.KotlinHolder
 abstract class DogadjaliViewModel : EpoxyModelWithHolder<DogadjaliViewModel.DogadjajiHolder>() {
     @EpoxyAttribute
     lateinit var dogadjaj: Dogadjaj
+
+    @EpoxyAttribute
+    lateinit var onTouch:View.OnClickListener
+
     private val URL = "https://api.polovnitelefoni.net/slike/"
 
     @EpoxyAttribute
     lateinit var context: Context
+    @SuppressLint("ClickableViewAccessibility")
     override fun bind(holder: DogadjajiHolder) {
         super.bind(holder)
         holder.imeLokala.setText(dogadjaj.imeLokala)
@@ -29,6 +35,8 @@ abstract class DogadjaliViewModel : EpoxyModelWithHolder<DogadjaliViewModel.Doga
                 .optionalCircleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.slikaLokala)
+
+        holder.slikaLokala.setOnClickListener(onTouch)
     }
 
     inner class DogadjajiHolder : KotlinHolder() {

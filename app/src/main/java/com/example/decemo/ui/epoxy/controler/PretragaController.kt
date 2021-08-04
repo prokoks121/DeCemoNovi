@@ -2,6 +2,7 @@ package com.example.decemo.ui.epoxy.controler
 
 import android.view.View
 import com.airbnb.epoxy.*
+import com.example.decemo.model.Dogadjaj
 import com.example.decemo.ui.epoxy.model.*
 import com.example.decemo.model.Lokal
 import com.example.decemo.ui.view.dataForController
@@ -12,15 +13,19 @@ class PretragaController() : TypedEpoxyController<dataForController>() {
         pretragaView {
             id("Pretraga")
         }
-        val itemModels =  data?.let {
-            it.dogadjaji.map  { item ->
-                DogadjaliViewModel_()
-                        .id(item.id)
-                        .dogadjaj(item)
+        val itemModels = ArrayList<DogadjaliViewModel_>()
+        data?.let {
+            for (i in 0 until it.dogadjaji.size){
+                itemModels.add( DogadjaliViewModel_()
+                        .id(it.dogadjaji[i].id)
+                        .dogadjaj(it.dogadjaji[i])
                         .context(data.context)
+                        .onTouch(View.OnClickListener {o->
+                            data.callBack.onDogadjajTouch(it.dogadjaji[i],i)
+                        }))
             }
         }
-        itemModels?.let {
+        itemModels.let {
             carousel {
                 id("Dogadjaji")
                 models(it)
@@ -67,6 +72,7 @@ class PretragaController() : TypedEpoxyController<dataForController>() {
    interface changeStatus {
       fun click(id:Int,vrsta:String)
        fun onLokalClick(lokal:Lokal)
+       fun onDogadjajTouch(dogadjaj:Dogadjaj,position:Int)
    }
 
 

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_search_to_lokalFragment2"
             app:destination="@id/lokalFragment" />
+        <action
+            android:id="@+id/action_search_to_storyFragment"
+            app:destination="@id/storyFragment" />
     </fragment>
     <fragment
         android:id="@+id/lokalFragment"
@@ -31,5 +34,17 @@
         <argument
             android:name="Lokal"
             app:argType="com.example.decemo.model.Lokal" />
+    </fragment>
+    <fragment
+        android:id="@+id/storyFragment"
+        android:name="com.example.decemo.ui.view.StoryFragment"
+        android:label="fragment_story"
+        tools:layout="@layout/fragment_story" >
+        <argument
+            android:name="Dogadjaj"
+            app:argType="com.example.decemo.model.Dogadjaj[]" />
+        <argument
+            android:name="Position"
+            app:argType="integer" />
     </fragment>
 </navigation>
