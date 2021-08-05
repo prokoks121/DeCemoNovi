@@ -73,6 +73,7 @@ class PretragaController() : TypedEpoxyController<dataForController>() {
       fun click(id:Int,vrsta:String)
        fun onLokalClick(lokal:Lokal)
        fun onDogadjajTouch(dogadjaj:Dogadjaj,position:Int)
+
    }
 
 

@@ -41,10 +41,7 @@
         android:label="fragment_story"
         tools:layout="@layout/fragment_story" >
         <argument
-            android:name="Dogadjaj"
-            app:argType="com.example.decemo.model.Dogadjaj[]" />
-        <argument
-            android:name="Position"
-            app:argType="integer" />
+            android:name="Data"
+            app:argType="com.example.decemo.ui.view.StoryFragment$Data" />
     </fragment>
 </navigation>

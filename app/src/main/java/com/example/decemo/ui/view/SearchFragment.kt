@@ -51,9 +51,15 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
     }
 
     override fun onDogadjajTouch(dogadjaj: Dogadjaj,position:Int) {
-        val action = SearchFragmentDirections.actionSearchToStoryFragment(data.dogadjaji.toTypedArray(),position)
+        val lista =  ArrayList<ArrayList<Dogadjaj>>()
+        lista.add(arrayListOf<Dogadjaj>(data.dogadjaji[0]))
+        lista.add(arrayListOf<Dogadjaj>(data.dogadjaji[1],data.dogadjaji[2],data.dogadjaji[3]))
+        lista.add(arrayListOf<Dogadjaj>(data.dogadjaji[4],data.dogadjaji[5]))
+        val action = SearchFragmentDirections.actionSearchToStoryFragment(
+            StoryFragment.Data(lista, position))
         requireView().findNavController().navigate(action)
     }
+
 
     fun currentTypeLokal():String{
         Repository.listaVrstaLokala.forEach {

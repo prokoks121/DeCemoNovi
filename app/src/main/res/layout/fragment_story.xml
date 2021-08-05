@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.view.StoryFragment">
-<com.airbnb.epoxy.EpoxyRecyclerView
-    android:id="@+id/storyEpoxyRecyclerView"
+<androidx.viewpager.widget.ViewPager
+    android:id="@+id/SrotiesPager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 </FrameLayout>
