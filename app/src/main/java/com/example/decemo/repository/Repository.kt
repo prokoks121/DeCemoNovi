@@ -1,5 +1,6 @@
 package com.example.decemo.repository
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.decemo.model.Dogadjaj
@@ -18,6 +19,9 @@ object Repository {
         MutableLiveData<ArrayList<Dogadjaj>>()
     }
     val listaVrstaLokala = VrstaLokalaFactory.getVrstukafica()
+
+
+
     fun getLokali() {
         val call = Connect.retrofitApiInterface.getListuLokala()
         call.enqueue(object : Callback<ArrayList<Lokal>> {

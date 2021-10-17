@@ -13,20 +13,21 @@ import android.widget.*
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
 import com.example.decemo.model.FilterMap
 import com.example.decemo.model.Lokal
 import com.example.decemo.model.factory.FilterMapFactory
-import com.example.decemo.ui.epoxy.model.RadnoVremeViewModel
 import com.example.decemo.ui.map.PocetnaMap
 import com.example.decemo.ui.viewmodel.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
+import java.util.zip.Deflater
 import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
@@ -34,7 +35,7 @@ class HomeFragment : Fragment() {
     var mapView: MapView? = null
     lateinit var map: PocetnaMap
     lateinit var filterIcon: ImageView
-    lateinit var mutableData:MutableLiveData<ArrayList<FilterMap>>
+    var mutableData:MutableLiveData<ArrayList<FilterMap>> = MutableLiveData()
     var listaLokala:ArrayList<Lokal> = ArrayList()
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -49,13 +50,21 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
         mapView = view.findViewById(R.id.mapView)
         filterIcon = view.findViewById(R.id.mainFilterMapIcon)
-        mapView!!.onCreate(savedInstanceState)
-        mutableData = MutableLiveData(FilterMapFactory.getList())
-
-        map = PocetnaMap(requireContext(),requireView(), mapView!!)
+        mapView?.onCreate(savedInstanceState)
+        mutableData = MutableLiveData()
+        CoroutineScope(Dispatchers.Default).launch{
+            mutableData = MutableLiveData(FilterMapFactory.getList())
+        }
+       // mutableData = MutableLiveData(FilterMapFactory.getList())
+        mapView?.let {
+            map = PocetnaMap(requireContext(),requireView(), it)
+        }
         viewModel.listaLokala.observe(viewLifecycleOwner, Observer {
             listaLokala = it
-            map.listaLokala = filterMapLokalList(mutableData.value!!,it)
+            mutableData.value?.let { lets->
+                map.listaLokala = filterMapLokalList(lets,it)
+
+            }
         })
         filterIcon.setOnClickListener(View.OnClickListener {
             BottomView(view,requireContext(), mutableData)
@@ -63,8 +72,10 @@ class HomeFragment : Fragment() {
 
         mutableData.observe(viewLifecycleOwner, Observer {
 
-            map.listaLokala = filterMapLokalList(mutableData.value!!,listaLokala)
+            mutableData.value?.let {
+                map.listaLokala = filterMapLokalList(mutableData.value!!,listaLokala)
 
+            }
 
         })
     }
@@ -83,7 +94,6 @@ class HomeFragment : Fragment() {
             }
         }
         return listaLokalaFiltrirano
-
     }
 
    private class BottomView(val view: View, val context: Context, val data:MutableLiveData<ArrayList<FilterMap>>):CompoundButton.OnCheckedChangeListener {
@@ -99,9 +109,10 @@ class HomeFragment : Fragment() {
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         private fun setView() {
 
-            data.value!!.forEach {
+            data.value?.forEach {
                 sheet.findViewById<Switch>(it.switchId)?.let { let->
                     let.setOnCheckedChangeListener(this)
+                    let.isChecked = it.status
                     listaFiltera.add(let)
                 }
             }
@@ -111,19 +122,13 @@ class HomeFragment : Fragment() {
        override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
            for (i in 0 until listaFiltera.size){
                if (buttonView == listaFiltera[i]) {
-                   Log.d("Provera",data.value!![i].status.toString())
-                   data.value!![i].status = isChecked
-                   Log.d("Provera",data.value!![i].status.toString())
+                   data.value?.let {
+                       it[i].status = isChecked
+                   }
                    break
                }
            }
            data.postValue(data.value)
        }
-
-
-
-
    }
-
-
     }

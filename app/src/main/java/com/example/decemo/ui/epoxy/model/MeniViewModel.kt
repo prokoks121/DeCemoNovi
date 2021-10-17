@@ -25,7 +25,7 @@ abstract class MeniViewModel: EpoxyModelWithHolder<MeniViewModel.ViewHolder>() {
 
         }else{
             holder.galerija.setTextColor(Color.parseColor("#FF5B16"))
-            holder.mapa.setTextColor(Color.parseColor("#FF5B16"))
+            holder.mapa.setTextColor(Color.parseColor("#FFFFFF"))
 
         }
         holder.galerija.setOnClickListener(myListener)

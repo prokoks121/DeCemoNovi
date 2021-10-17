@@ -22,7 +22,7 @@ import java.util.*
 
 class BottomView(private val kafic: Lokal, val view: View, val context: Context) {
     private val sheet: BottomSheetDialog = BottomSheetDialog(context, R.style.SheetDialog)
-    private val url = "https://api.polovnitelefoni.net/slike/"
+    private val url = "https://bekmen.rs/api/slike/"
     private val currentTime: Date = Calendar.getInstance().getTime()
     private var currentDay: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
     init {

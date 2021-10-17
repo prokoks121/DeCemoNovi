@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
+import androidx.work.Data
 import com.airbnb.epoxy.*
 import com.example.decemo.R
 import com.example.decemo.model.Dogadjaj

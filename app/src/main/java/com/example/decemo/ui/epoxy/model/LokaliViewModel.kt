@@ -14,7 +14,7 @@ import com.example.decemo.model.Lokal
 
 @EpoxyModelClass(layout = R.layout.epoxy_lokali_item)
 abstract class LokaliViewModel : EpoxyModelWithHolder<LokaliViewModel.ViewHolder>() {
-    private val URL = "https://api.polovnitelefoni.net/slike/"
+    private val URL = "https://bekmen.rs/api/slike/"
     @EpoxyAttribute
     lateinit var context: Context
     @EpoxyAttribute

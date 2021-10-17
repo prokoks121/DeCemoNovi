@@ -16,7 +16,7 @@ import com.example.decemo.R
 
 @EpoxyModelClass(layout = R.layout.epoxy_galerija_item)
 abstract class GalerijaViewModel:EpoxyModelWithHolder<GalerijaViewModel.ViewHolder>() {
-    private val URL = "https://api.polovnitelefoni.net/slike/"
+    private val URL = "https://bekmen.rs/api/slike/"
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var url:String

@@ -17,11 +17,11 @@ class PretragaController() : TypedEpoxyController<dataForController>() {
         data?.let {
             for (i in 0 until it.dogadjaji.size){
                 itemModels.add( DogadjaliViewModel_()
-                        .id(it.dogadjaji[i].id)
-                        .dogadjaj(it.dogadjaji[i])
+                        .id(i)
+                        .dogadjaj(it.dogadjaji[i][0])
                         .context(data.context)
                         .onTouch(View.OnClickListener {o->
-                            data.callBack.onDogadjajTouch(it.dogadjaji[i],i)
+                            data.callBack.onDogadjajTouch(it.dogadjaji[i][0],i)
                         }))
             }
         }

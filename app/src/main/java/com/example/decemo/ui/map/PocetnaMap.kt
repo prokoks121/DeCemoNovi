@@ -5,6 +5,7 @@ package com.example.decemo.ui.map
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
@@ -27,6 +28,9 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.CircleLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class PocetnaMap(val context: Context, val view: View, private val mapView: MapView) : PermissionsListener, OnRequestPermissionsResultCallback {
@@ -44,16 +48,21 @@ class PocetnaMap(val context: Context, val view: View, private val mapView: MapV
     }
     private fun markeri() {
         listaLokalaZaPrikaz.clear()
-        val iconF = IconFactory.getInstance(context)
-        for (x in listaLokala) {
-            listaLokalaZaPrikaz.add(when (x.vrsta) {
-                "Kafic" -> MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.coffee))
-                "Pab" -> MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.beer))
-                else -> MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.placeholder))
-            })
-        }
-        if (this::mapboxMaps.isInitialized)
-            styleMap()
+
+            val iconF = IconFactory.getInstance(context)
+
+            for (x in listaLokala) {
+                listaLokalaZaPrikaz.add(when (x.vrsta) {
+                    "Kafići" -> MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.coffee))
+                    "Pivnice" -> MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.beer))
+                    "Kafane" ->MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.beer))
+                    else -> MarkerOptions().position(LatLng(x.lat, x.long)).setTitle(x.ime).icon(iconF.fromResource(R.drawable.placeholder))
+                })
+            }
+            if (this@PocetnaMap::mapboxMaps.isInitialized)
+                styleMap()
+
+
     }
     @SuppressLint("ResourceAsColor")
     private fun mapa() {

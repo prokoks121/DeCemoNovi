@@ -25,7 +25,6 @@ class LokalController(val callBack: CallBack,val context: Context) : EpoxyContro
      override fun onClick() {
          showAll = !showAll
          requestModelBuild()
-         Log.d("Provera","Provera")
      }
     override fun buildModels() {
 
@@ -44,8 +43,9 @@ class LokalController(val callBack: CallBack,val context: Context) : EpoxyContro
         }
         MeniViewModel_()
                 .id("meni")
+                .check(provera)
                 .myListener(View.OnClickListener {
-              callBack.hide(it)
+                    callBack.hide(it)
             }).addTo(this)
 
         val map = MapBoxViewModel_ ()
@@ -70,6 +70,7 @@ class LokalController(val callBack: CallBack,val context: Context) : EpoxyContro
     val model = CarouselModel_()
         .id("Galerija")
         .models(galerija)
+        .hasFixedSize(true)
         model.addIf(!provera,this)
 
       /*  radnoVremeView {

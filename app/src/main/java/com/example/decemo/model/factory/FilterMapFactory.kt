@@ -4,7 +4,7 @@ import com.example.decemo.R
 import com.example.decemo.model.FilterMap
 
 object FilterMapFactory {
-    fun getList():ArrayList<FilterMap>{
+   fun getList():ArrayList<FilterMap>{
         val list:ArrayList<FilterMap> = ArrayList()
         list.add(FilterMap("Kafići", true, 0, R.id.kaficF))
         list.add(FilterMap("Pivnice", true, 1, R.id.pabF))

@@ -2,6 +2,7 @@ package com.example.decemo.ui.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,12 +52,9 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
     }
 
     override fun onDogadjajTouch(dogadjaj: Dogadjaj,position:Int) {
-        val lista =  ArrayList<ArrayList<Dogadjaj>>()
-        lista.add(arrayListOf<Dogadjaj>(data.dogadjaji[0]))
-        lista.add(arrayListOf<Dogadjaj>(data.dogadjaji[1],data.dogadjaji[2],data.dogadjaji[3]))
-        lista.add(arrayListOf<Dogadjaj>(data.dogadjaji[4],data.dogadjaji[5]))
+
         val action = SearchFragmentDirections.actionSearchToStoryFragment(
-            StoryFragment.Data(lista, position))
+            StoryFragment.Data(data.dogadjaji, position))
         requireView().findNavController().navigate(action)
     }
 
@@ -81,13 +79,30 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
 
     private fun setObservers(){
         viewModel.listaLokala.observe(viewLifecycleOwner, Observer {
+            Log.d("Provera","Lokali set")
+
             filterList(currentTypeLokal(), it)
         })
 
         viewModel.listaDogadjaja.observe(viewLifecycleOwner, Observer {
-            data.dogadjaji = it
+            Log.d("Provera","dogadjaji set")
+            data.dogadjaji =  it.group()
             controler.setData(data)
         })
+    }
+
+
+
+    private fun ArrayList<Dogadjaj>.group():ArrayList<ArrayList<Dogadjaj>>{
+        val hashMap = HashMap<Int,ArrayList<Dogadjaj>>()
+        this.forEach {
+            if (hashMap.containsKey(it.id_lokala))
+                hashMap[it.id_lokala]?.let {let -> let.add(it)}
+                else
+                hashMap[it.id_lokala] = arrayListOf(it)
+                }
+
+        return ArrayList(hashMap.values)
     }
 
     private fun setEpoxy(view:View){
@@ -109,7 +124,7 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
 
 data class dataForController(
         var lokali:ArrayList<Lokal>,
-        var dogadjaji: ArrayList<Dogadjaj>,
+        var dogadjaji: ArrayList<ArrayList<Dogadjaj>>,
         var context:Context,
         var callBack:PretragaController.changeStatus,
         var listaVrteLokala: ArrayList<VrstaLokala>

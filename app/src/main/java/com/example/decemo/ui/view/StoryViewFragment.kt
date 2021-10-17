@@ -12,18 +12,19 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.decemo.R
 import com.example.decemo.model.Dogadjaj
 
 class StoryViewFragment(val dogadjaj:ArrayList<Dogadjaj>,val callBacks: callBack) : Fragment() {
 
-    lateinit var storyImage: ImageView
+  //  lateinit var storyImage: ImageView
     lateinit var storyImageBackground: ImageView
     lateinit var storyLokalImage: ImageView
     lateinit var storyLokalName: TextView
     lateinit var layout: ConstraintLayout
     var position = 0
-    private val URL = "https://api.polovnitelefoni.net/slike/"
+    private val URL = "https://bekmen.rs/api/slike/"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,7 @@ class StoryViewFragment(val dogadjaj:ArrayList<Dogadjaj>,val callBacks: callBack
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         position = 0
-        storyImage = view.findViewById(R.id.StoryImage)
+       // storyImage = view.findViewById(R.id.StoryImage)
         storyImageBackground = view.findViewById(R.id.StoryImageBackground)
         storyLokalImage = view.findViewById(R.id.StoryLocalImage)
         storyLokalName= view.findViewById(R.id.StoryLokalName)
@@ -66,23 +67,23 @@ class StoryViewFragment(val dogadjaj:ArrayList<Dogadjaj>,val callBacks: callBack
 
     private fun setView(){
 
-        storyImage.layout(0, 0, 0, 0)
+      //  storyImage.layout(0, 0, 0, 0)
 
-        Glide.with(requireActivity())
-            .load(URL + dogadjaj[position].slika)
+   /*     Glide.with(requireActivity())
+            .load(URL + dogadjaj[position].imeLokala+"/Story/" + dogadjaj[position].slika)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(storyImage)
+            .into(storyImage)*/
 
 
         Glide.with(requireActivity())
-            .load(URL + dogadjaj[position].slika)
-            //   .transform( MultiTransformation(CenterCrop(), StoryFragment.BlurTransformation(context)))
+            .load(URL + dogadjaj[position].imeLokala+"/Story/" + dogadjaj[position].slika)
+            .transform(CenterCrop())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(storyImageBackground)
 
 
         Glide.with(requireActivity())
-            .load(URL + dogadjaj[position].slika)
+            .load(URL + dogadjaj[position].imeLokala+"/Story/" + dogadjaj[position].slika)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .circleCrop()
             .into(storyLokalImage)

@@ -1,7 +1,5 @@
 package com.example.decemo.model
-
 import java.io.Serializable
-
 
 data class Lokal(
         val adresa: String,

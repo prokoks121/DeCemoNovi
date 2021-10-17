@@ -22,7 +22,7 @@ abstract class DogadjaliViewModel : EpoxyModelWithHolder<DogadjaliViewModel.Doga
     @EpoxyAttribute
     lateinit var onTouch:View.OnClickListener
 
-    private val URL = "https://api.polovnitelefoni.net/slike/"
+    private val URL = "https://bekmen.rs/api/slike/"
 
     @EpoxyAttribute
     lateinit var context: Context
@@ -31,7 +31,7 @@ abstract class DogadjaliViewModel : EpoxyModelWithHolder<DogadjaliViewModel.Doga
         super.bind(holder)
         holder.imeLokala.setText(dogadjaj.imeLokala)
         Glide.with(context)
-                .load(URL + dogadjaj.slika)
+                .load(URL + dogadjaj.imeLokala+"/Story/" + dogadjaj.slika)
                 .optionalCircleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.slikaLokala)
