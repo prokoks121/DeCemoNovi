@@ -1,6 +1,7 @@
 package com.example.decemo.ui.epoxy.controler
 
 import android.view.View
+import android.widget.AutoCompleteTextView
 import com.airbnb.epoxy.*
 import com.example.decemo.model.Dogadjaj
 import com.example.decemo.ui.epoxy.model.*
@@ -12,6 +13,9 @@ class PretragaController() : TypedEpoxyController<dataForController>() {
     override fun buildModels(data: dataForController?) {
         pretragaView {
             id("Pretraga")
+            onClick {
+                data?.callBack?.onSearchClick(it)
+            }
         }
         val itemModels = ArrayList<DogadjaliViewModel_>()
         data?.let {
@@ -73,6 +77,7 @@ class PretragaController() : TypedEpoxyController<dataForController>() {
       fun click(id:Int,vrsta:String)
        fun onLokalClick(lokal:Lokal)
        fun onDogadjajTouch(dogadjaj:Dogadjaj,position:Int)
+       fun onSearchClick(search: AutoCompleteTextView)
 
    }
 

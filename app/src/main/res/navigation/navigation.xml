@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_search_to_storyFragment"
             app:destination="@id/storyFragment" />
+        <action
+            android:id="@+id/action_search_to_searchLokaliFragment"
+            app:destination="@id/searchLokaliFragment" />
     </fragment>
     <fragment
         android:id="@+id/lokalFragment"
@@ -43,5 +46,20 @@
         <argument
             android:name="Data"
             app:argType="com.example.decemo.ui.view.StoryFragment$Data" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchLokaliFragment"
+        android:name="com.example.decemo.ui.view.SearchLokaliFragment"
+        android:label="fragment_search_lokali"
+        tools:layout="@layout/fragment_search_lokali" >
+        <argument
+            android:name="uri"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null"
+            />
+        <action
+            android:id="@+id/action_searchLokaliFragment_to_lokalFragment"
+            app:destination="@id/lokalFragment" />
     </fragment>
 </navigation>

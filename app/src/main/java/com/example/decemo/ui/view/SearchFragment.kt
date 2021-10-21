@@ -6,10 +6,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.decemo.R
@@ -32,6 +37,8 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         viewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
         data = dataForController(arrayListOf(), arrayListOf(),requireContext(),this, Repository.listaVrstaLokala)
         setEpoxy(view)
@@ -58,6 +65,16 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
         requireView().findNavController().navigate(action)
     }
 
+    override fun onSearchClick(search: AutoCompleteTextView) {
+        Log.d("Provera","prvi")
+        val ser = "search"
+        val extras = FragmentNavigatorExtras(
+            search to ser
+        )
+        val action = SearchFragmentDirections.actionSearchToSearchLokaliFragment(uri = ser)
+        findNavController().navigate(action, extras)
+    }
+
 
     fun currentTypeLokal():String{
         Repository.listaVrstaLokala.forEach {
@@ -79,13 +96,10 @@ class SearchFragment : Fragment(), PretragaController.changeStatus {
 
     private fun setObservers(){
         viewModel.listaLokala.observe(viewLifecycleOwner, Observer {
-            Log.d("Provera","Lokali set")
-
             filterList(currentTypeLokal(), it)
         })
 
         viewModel.listaDogadjaja.observe(viewLifecycleOwner, Observer {
-            Log.d("Provera","dogadjaji set")
             data.dogadjaji =  it.group()
             controler.setData(data)
         })

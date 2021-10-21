@@ -100,7 +100,6 @@ class StoryViewFragment(val dogadjaj:ArrayList<Dogadjaj>,val callBacks: callBack
             }
             else
               callBacks.next()
-            Log.d("Provera", "+123")
         }
         else {
             val pom = position -1
@@ -111,9 +110,7 @@ class StoryViewFragment(val dogadjaj:ArrayList<Dogadjaj>,val callBacks: callBack
             }
             else
               callBacks.back()
-            Log.d("Provera", "-123")
         }
-        Log.d("Provera", position.toString())
     }
 
     interface callBack{

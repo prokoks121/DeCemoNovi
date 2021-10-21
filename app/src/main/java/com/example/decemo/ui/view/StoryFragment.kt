@@ -3,6 +3,7 @@ package com.example.decemo.ui.view
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
 import androidx.work.Data
@@ -42,7 +44,7 @@ class StoryFragment : Fragment(), StoryViewFragment.callBack {
             val pagerAdapter = fragmentManager?.let { ViewPagerAdapter(it,data,this) }
 
             mPager.adapter = pagerAdapter
-            mPager.setCurrentItem(data.position)
+            mPager.currentItem = data.position
 
         })
 }
@@ -60,11 +62,14 @@ private class ViewPagerAdapter(fm: FragmentManager,var data:Data,val callback:St
     }
 }
     override fun next() {
-        mPager.setCurrentItem(mPager.currentItem +1)
+        Log.d("Provera",mPager.currentItem.toString())
+        if ( mPager.currentItem > mPager.childCount)
+            requireView().findNavController().popBackStack()
+        mPager.currentItem = mPager.currentItem +1
     }
 
     override fun back() {
-        mPager.setCurrentItem(mPager.currentItem -1)
+        mPager.currentItem = mPager.currentItem -1
     }
 
 }
