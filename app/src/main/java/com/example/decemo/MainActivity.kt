@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.decemo.repository.Repository
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,13 +20,11 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.storyFragment -> hideBottomNav(bottomNavigation)
-                else -> showBottomNav(bottomNavigation)
-            }
+//            when (destination.id) {
+//                R.id.storyFragment -> hideBottomNav(bottomNavigation)
+//                else -> showBottomNav(bottomNavigation)
+//            }
         }
-        Repository.getLokali()
-        Repository.getDogadjaje()
     }
 
     private fun showBottomNav(bottomNav:BottomNavigationView) {

@@ -10,56 +10,56 @@
         android:name="com.example.decemo.ui.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_home2_to_lokalFragment"
-            app:destination="@id/lokalFragment" />
+<!--        <action-->
+<!--            android:id="@+id/action_home2_to_lokalFragment"-->
+<!--            app:destination="@id/lokalFragment" />-->
     </fragment>
-    <fragment
-        android:id="@+id/search"
-        android:name="com.example.decemo.ui.view.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_search_to_lokalFragment2"
-            app:destination="@id/lokalFragment" />
-        <action
-            android:id="@+id/action_search_to_storyFragment"
-            app:destination="@id/storyFragment" />
-        <action
-            android:id="@+id/action_search_to_searchLokaliFragment"
-            app:destination="@id/searchLokaliFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/lokalFragment"
-        android:name="com.example.decemo.ui.view.LokalFragment"
-        android:label="fragment_lokal"
-        tools:layout="@layout/fragment_lokal" >
-        <argument
-            android:name="Lokal"
-            app:argType="com.example.decemo.model.Lokal" />
-    </fragment>
-    <fragment
-        android:id="@+id/storyFragment"
-        android:name="com.example.decemo.ui.view.StoryFragment"
-        android:label="fragment_story"
-        tools:layout="@layout/fragment_story" >
-        <argument
-            android:name="Data"
-            app:argType="com.example.decemo.ui.view.StoryFragment$Data" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchLokaliFragment"
-        android:name="com.example.decemo.ui.view.SearchLokaliFragment"
-        android:label="fragment_search_lokali"
-        tools:layout="@layout/fragment_search_lokali" >
-        <argument
-            android:name="uri"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="null"
-            />
-        <action
-            android:id="@+id/action_searchLokaliFragment_to_lokalFragment"
-            app:destination="@id/lokalFragment" />
-    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/search"-->
+<!--        android:name="com.example.decemo.ui.view.SearchFragment"-->
+<!--        android:label="fragment_search"-->
+<!--        tools:layout="@layout/fragment_search" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_search_to_lokalFragment2"-->
+<!--            app:destination="@id/lokalFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_search_to_storyFragment"-->
+<!--            app:destination="@id/storyFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_search_to_searchLokaliFragment"-->
+<!--            app:destination="@id/searchLokaliFragment" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/lokalFragment"-->
+<!--        android:name="com.example.decemo.ui.view.LokalFragment"-->
+<!--        android:label="fragment_lokal"-->
+<!--        tools:layout="@layout/fragment_lokal" >-->
+<!--        <argument-->
+<!--            android:name="Lokal"-->
+<!--            app:argType="com.example.decemo.model.Lokal" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/storyFragment"-->
+<!--        android:name="com.example.decemo.ui.view.StoryFragment"-->
+<!--        android:label="fragment_story"-->
+<!--        tools:layout="@layout/fragment_story" >-->
+<!--        <argument-->
+<!--            android:name="Data"-->
+<!--            app:argType="com.example.decemo.ui.view.StoryFragment$Data" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/searchLokaliFragment"-->
+<!--        android:name="com.example.decemo.ui.view.SearchLokaliFragment"-->
+<!--        android:label="fragment_search_lokali"-->
+<!--        tools:layout="@layout/fragment_search_lokali" >-->
+<!--        <argument-->
+<!--            android:name="uri"-->
+<!--            app:argType="string"-->
+<!--            app:nullable="true"-->
+<!--            android:defaultValue="null"-->
+<!--            />-->
+<!--        <action-->
+<!--            android:id="@+id/action_searchLokaliFragment_to_lokalFragment"-->
+<!--            app:destination="@id/lokalFragment" />-->
+<!--    </fragment>-->
 </navigation>
