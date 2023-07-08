@@ -13,16 +13,15 @@
 //public class RadnoVremeModelGroup extends EpoxyModelGroup {
 //
 //
+//    public RadnoVremeModelGroup(data data) {
+//        super(R.layout.epoxy_radno_vreme_lokal, modelgroup(data));
+//        id("RadnoVreme");
+//    }
 //
-//   public RadnoVremeModelGroup(data data){
-//       super(R.layout.epoxy_radno_vreme_lokal, modelgroup(data));
-//       id("RadnoVreme");
-//   }
 //
-//
-//    private static List<EpoxyModel<?>> modelgroup(data data){
-//        int  currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-//        if(currentDay == 1)
+//    private static List<EpoxyModel<?>> modelgroup(data data) {
+//        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+//        if (currentDay == 1)
 //            currentDay = 8;
 //        ArrayList<EpoxyModel<?>> models = new ArrayList<>();
 //        int i = 1;
@@ -40,9 +39,9 @@
 //                            }
 //                        }).day(i));
 //            }
-//        } else{
+//        } else {
 //            models.add(new LokalRadnoVremeViewModel_().id(i)
-//                    .type(data.list.get(currentDay-2))
+//                    .type(data.list.get(currentDay - 2))
 //                    .clickListener(new View.OnClickListener() {
 //
 //                        @Override
@@ -54,19 +53,18 @@
 //        }
 //
 //
-//
 //        return models;
-//        }
-//
-//
-//  public interface callBack{
-//         void onClick();
 //    }
 //
-//   public static class data{
-//       private callBack callBack;
-//       private ArrayList<String> list;
-//       private Boolean showAll;
+//
+//    public interface callBack {
+//        void onClick();
+//    }
+//
+//    public static class data {
+//        private callBack callBack;
+//        private ArrayList<String> list;
+//        private Boolean showAll;
 //
 //        public data(RadnoVremeModelGroup.callBack callBack, ArrayList<String> list, Boolean showAll) {
 //            this.callBack = callBack;
@@ -98,4 +96,4 @@
 //            this.showAll = showAll;
 //        }
 //    }
-//        }
+//}

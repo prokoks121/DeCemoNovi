@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.HomeFragment">
 
-    <com.mapbox.mapboxsdk.maps.MapView
+    <com.example.decemo.ui.component.map.MapboxMapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -22,5 +22,5 @@
         android:src="@drawable/ic_filter"
          />
 
-    </com.mapbox.mapboxsdk.maps.MapView>
+    </com.example.decemo.ui.component.map.MapboxMapView>
 </FrameLayout>

@@ -8,5 +8,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="mapbox_access_token">pk.eyJ1IjoicHJva29rczEyMSIsImEiOiJjazZpNXFvc2QwMWRhM25ubjZ1OTkzN25mIn0.7S8Fg_MGjKZnfOGl2NCaKQ</string>
     <string name="dogadjaji_Link_access">https://bekgmen.rs/api/slike/</string>
+    <string name="filteri">FILTERI</string>
 
 </resources>

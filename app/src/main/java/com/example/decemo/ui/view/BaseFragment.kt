@@ -5,15 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.decemo.R
 import com.example.decemo.ui.viewmodel.BaseViewModel
-import com.mapbox.mapboxsdk.Mapbox
 
 abstract class BaseFragment(private val layoutResId: Int) : Fragment(layoutResId) {
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Mapbox.getInstance(requireActivity(), getString(R.string.mapbox_access_token))
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(layoutResId, container, false)
     }
 

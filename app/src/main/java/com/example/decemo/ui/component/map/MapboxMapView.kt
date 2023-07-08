@@ -1,4 +1,4 @@
-package com.example.decemo.ui.map
+package com.example.decemo.ui.component.map
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -7,12 +7,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.example.decemo.R
 import com.example.decemo.retrofit.dto.BarDto
 import com.mapbox.android.core.permissions.PermissionsListener
@@ -32,66 +29,64 @@ import com.mapbox.mapboxsdk.style.layers.CircleLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 
 
-// Da bude kao komponenta
 @SuppressLint("ViewConstructor")
-class MapboxMapView @JvmOverloads constructor(
-    context: Context, val view: View,
-    private val mapView: MapView,
-    attrs: AttributeSet? = null,
-) : PermissionsListener, OnRequestPermissionsResultCallback, ConstraintLayout(context, attrs) {
-    // Ne lista lokala nego da bude objekat neki koji sadrzi koordinate i ikonicu i ime
-    private var bars: MutableLiveData<List<BarDto>> = MutableLiveData()
+class MapboxMapView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : PermissionsListener, OnRequestPermissionsResultCallback,
+    MapView(context, attrs) {
+    private var bars: List<BarDto> = listOf()
 
-    //    private val listaLokalaZaPrikaz: ArrayList<MarkerOptions> = ArrayList()
     private lateinit var mapboxMaps: MapboxMap
     private lateinit var markerViewManager: MarkerViewManager
     private var markerViews = listOf<MarkerView>()
     private lateinit var permissionsManager: PermissionsManager
-    private var oldZoom = 12.0
+    private var lastZoom = 12.0
 
     init {
         initializeMap()
     }
 
     private fun generateMarkers(bars: List<BarDto>): List<MarkerView> {
-        // TODO(Deprecated da se sredi)
-//        val iconF = IconFactory.getInstance(context)
+        if (!this::markerViewManager.isInitialized) {
+            return listOf()
+        }
+
         if (markerViews.isNotEmpty()) {
             markerViews.forEach {
                 markerViewManager.removeMarker(it)
             }
         }
         val markers = bars.map { bar ->
-            val customView: View = LayoutInflater.from(context).inflate(
-                R.layout.custom_marker, null
-            )
-            customView.layoutParams = FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+            val customView: View = LayoutInflater.from(context).inflate(R.layout.custom_marker, null)
+            val markerIcon = customView.findViewById<ImageView>(R.id.mapViewIcon)
+
+            customView.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
             customView.setOnClickListener {
-//                    BottomView(bar, view, context)
+                BarBottomView(bar, this, context, onBottomViewClick)
             }
 
-//            when (bar.barType.type) {
-//                // TODO(Deprecated da se sredi)
-//                // TODO(Da se izbaci deo logike odavde)
-//                "Kafići" ->  .setTitle(bar.name).icon(iconF.fromResource(R.drawable.coffee))
-//                "Pivnice" ->  .icon(iconF.fromResource(R.drawable.beer))
-//                "Kafane" -> .icon(iconF.fromResource(R.drawable.beer))
-//                else -> .icon(iconF.fromResource(R.drawable.placeholder))
-//            }
+            when (bar.barType.type) {
+                // TODO(Deprecated da se sredi)
+                // TODO(Da se izbaci deo logike odavde)
+                "Kafići" -> markerIcon.setImageResource(R.drawable.coffee)
+                "Pivnice" -> markerIcon.setImageResource(R.drawable.beer)
+                "Kafane" -> markerIcon.setImageResource(R.drawable.beer)
+                else -> markerIcon.setImageResource(R.drawable.placeholder)
+            }
             val markerView = MarkerView(LatLng(bar.latitude, bar.longitude), customView)
-            markerViewManager.addMarker(MarkerView(LatLng(bar.latitude, bar.longitude), customView))
+            markerViewManager.addMarker(markerView)
             markerView
         }
         return markers
-//
-//        if (this@MapboxMapView::mapboxMaps.isInitialized) {
-//            styleMap()
-//        }
     }
+
+    fun setOnBottomViewClick(onBottomViewClick: (BarDto) -> Unit) {
+        this.onBottomViewClick = onBottomViewClick
+    }
+
+    private var onBottomViewClick = { _: BarDto -> }
 
     @SuppressLint("ResourceAsColor")
     private fun initializeMap() {
-        mapView.getMapAsync { mapboxMap: MapboxMap? ->
+        this.getMapAsync { mapboxMap: MapboxMap? ->
             mapboxMaps = mapboxMap!!
             mapboxMaps.uiSettings.isAttributionEnabled = false
             mapboxMaps.uiSettings.isLogoEnabled = false
@@ -109,13 +104,8 @@ class MapboxMapView @JvmOverloads constructor(
                     PropertyFactory.circleColor(R.color.black)
                 )
                 style.addLayer(circleLayer)
-                // TODO(Deprecated da se sredi)
-                markerViewManager = MarkerViewManager(mapView, mapboxMaps)
-                bars.observe(ViewTreeLifecycleOwner.get(mapView)!!) {
-                    markerViews = generateMarkers(it)
-                }
-
-//                mapboxMaps.isAllowConcurrentMultipleOpenInfoWindows = true
+                markerViewManager = MarkerViewManager(this, mapboxMaps)
+                markerViews = generateMarkers(bars)
                 onCameraIdle()
             }
         }
@@ -124,12 +114,12 @@ class MapboxMapView @JvmOverloads constructor(
     private fun onCameraIdle() {
         mapboxMaps.addOnCameraIdleListener {
             val currentZoom = mapboxMaps.cameraPosition.zoom
-            if (currentZoom > 16 && oldZoom <= 16) {
+            if (currentZoom > 16 && lastZoom <= 16) {
                 setAngle(90.0)
-            } else if (currentZoom <= 16 && oldZoom > 16) {
+            } else if (currentZoom <= 16 && lastZoom > 16) {
                 setAngle(0.0)
             }
-            oldZoom = currentZoom
+            lastZoom = currentZoom
         }
     }
 
@@ -158,14 +148,6 @@ class MapboxMapView @JvmOverloads constructor(
         }
     }
 
-//    private fun styleMap() {
-//        mapboxMaps.getStyle {
-//            // TODO(Deprecated da se sredi)
-//            mapboxMaps.clear()
-//            mapboxMaps.addMarkers(listaLokalaZaPrikaz)
-//        }
-//    }
-
     override fun onExplanationNeeded(permissionsToExplain: List<String>) {
         // TODO(U string)
         Toast.makeText(context, "Dozvoljeno", Toast.LENGTH_LONG).show()
@@ -191,6 +173,7 @@ class MapboxMapView @JvmOverloads constructor(
     }
 
     fun addMarkers(bars: List<BarDto>) {
-        this.bars.value = bars
+        this.bars = bars
+        markerViews = generateMarkers(bars)
     }
 }

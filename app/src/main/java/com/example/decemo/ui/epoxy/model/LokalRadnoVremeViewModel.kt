@@ -1,5 +1,6 @@
 //package com.example.decemo.ui.epoxy.model
 //
+//import android.annotation.SuppressLint
 //import android.graphics.Color
 //import android.util.Log
 //import android.view.View
@@ -13,8 +14,8 @@
 //import java.lang.Exception
 //import java.util.*
 //
+//@SuppressLint("NonConstantResourceId")
 //@EpoxyModelClass(layout = R.layout.lokal_radno_vreme)
-//
 //abstract class LokalRadnoVremeViewModel: EpoxyModelWithHolder<LokalRadnoVremeViewModel.ViewHolder>() {
 //
 //    @EpoxyAttribute

@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bottom_background"
-
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:gravity="center"
-        android:text="FILTERI"
+        android:text="@string/filteri"
         android:textColor="#FF5B16"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -22,119 +19,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Switch
-        android:id="@+id/klubF"
-        android:layout_width="wrap_content"
+    <GridLayout
+        android:id="@+id/filterBottomGrid"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/bottom_background"
-        android:checked="true"
-        android:padding="10dp"
-        android:text="Klub"
-        android:textSize="21sp"
-        android:theme="@style/SCBSwitch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/pabF"
-        app:layout_constraintTop_toTopOf="@+id/pabF"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-    <Switch
-        android:id="@+id/kaficF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-
-        android:background="@drawable/bottom_background"
-        android:checked="true"
-        android:padding="10dp"
-        android:showText="false"
-        android:text="Kafic"
-        android:textSize="21sp"
-        android:theme="@style/SCBSwitch"
-        app:layout_constraintEnd_toStartOf="@+id/pabF"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pabF"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-    <Switch
-        android:id="@+id/pabF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="5dp"
-
-        android:background="@drawable/bottom_background"
-        android:checked="true"
-        android:padding="10dp"
-        android:text="Pab"
-        android:textSize="21sp"
-        android:theme="@style/SCBSwitch"
-        app:layout_constraintEnd_toStartOf="@+id/klubF"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/kaficF"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-
-    <Switch
-        android:id="@+id/splavF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/bottom_background"
-
-        android:checked="true"
-        android:padding="10dp"
-        android:showText="false"
-        android:text="Splav"
-        android:textSize="21sp"
-        android:theme="@style/SCBSwitch"
-        app:layout_constraintEnd_toStartOf="@+id/kafanaF"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pabF"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-    <Switch
-        android:id="@+id/kafanaF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/bottom_background"
-
-        android:checked="true"
-        android:padding="10dp"
-        android:text="Kafana"
-        android:textSize="21sp"
-        android:theme="@style/SCBSwitch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/splavF"
-        app:layout_constraintTop_toTopOf="@+id/splavF"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-
-    <Switch
-        android:id="@+id/svirke"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/bottom_background"
-        android:checked="true"
-        android:padding="10dp"
-        android:text="Samo svirke"
-        android:textSize="21sp"
-        android:theme="@style/SCBSwitch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kafanaF"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        android:columnCount="2"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

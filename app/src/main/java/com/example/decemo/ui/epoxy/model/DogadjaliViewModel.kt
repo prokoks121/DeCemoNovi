@@ -12,7 +12,7 @@
 //import com.bumptech.glide.load.engine.DiskCacheStrategy
 //import com.example.decemo.R
 //import com.example.decemo.model.Dogadjaj
-//import io.navendra.nachos.models.epoxy.KotlinHolder
+//import com.example.decemo.ui.epoxy.holder.KotlinHolder
 //
 //@EpoxyModelClass(layout = R.layout.epoxy_dogadjaji_item)
 //abstract class DogadjaliViewModel : EpoxyModelWithHolder<DogadjaliViewModel.DogadjajiHolder>() {

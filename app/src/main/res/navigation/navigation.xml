@@ -10,9 +10,9 @@
         android:name="com.example.decemo.ui.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-<!--        <action-->
-<!--            android:id="@+id/action_home2_to_lokalFragment"-->
-<!--            app:destination="@id/lokalFragment" />-->
+        <action
+            android:id="@+id/action_home2_to_barFragment"
+            app:destination="@id/barFragment" />
     </fragment>
 <!--    <fragment-->
 <!--        android:id="@+id/search"-->
@@ -29,15 +29,12 @@
 <!--            android:id="@+id/action_search_to_searchLokaliFragment"-->
 <!--            app:destination="@id/searchLokaliFragment" />-->
 <!--    </fragment>-->
-<!--    <fragment-->
-<!--        android:id="@+id/lokalFragment"-->
-<!--        android:name="com.example.decemo.ui.view.LokalFragment"-->
-<!--        android:label="fragment_lokal"-->
-<!--        tools:layout="@layout/fragment_lokal" >-->
-<!--        <argument-->
-<!--            android:name="Lokal"-->
-<!--            app:argType="com.example.decemo.model.Lokal" />-->
-<!--    </fragment>-->
+    <fragment
+        android:id="@+id/barFragment"
+        android:name="com.example.decemo.ui.view.BarFragment"
+        android:label="fragment_lokal"
+        tools:layout="@layout/fragment_lokal" >
+    </fragment>
 <!--    <fragment-->
 <!--        android:id="@+id/storyFragment"-->
 <!--        android:name="com.example.decemo.ui.view.StoryFragment"-->
