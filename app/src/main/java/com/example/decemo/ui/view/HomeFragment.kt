@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.example.decemo.R
+import com.example.decemo.retrofit.dto.BarDto
 import com.example.decemo.ui.component.FilterBottomView
+import com.example.decemo.ui.component.map.BarBottomView
 import com.example.decemo.ui.component.map.MapboxMapView
+import com.example.decemo.ui.component.map.model.Marker
 import com.example.decemo.ui.viewmodel.BaseViewModel
 import com.example.decemo.ui.viewmodel.HomeViewModel
 import com.mapbox.mapboxsdk.Mapbox
@@ -29,12 +32,18 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         filterIcon = view.findViewById(R.id.mainFilterMapIcon)
         mapView.onCreate(savedInstanceState)
 
-        mapView.setOnBottomViewClick {
-            homeViewModel.onBarClick(it.id)
+        mapView.setCameraPosition(44.786604, 20.4717838, 12.0)
+        mapView.onMarkerClick = { marker ->
+            val bar = homeViewModel.bars.value?.find { bar -> bar.id == marker.id }
+            bar?.let {
+                BarBottomView(it, mapView, requireContext(), ::onBottomViewClick)
+            }
         }
 
         homeViewModel.bars.observe(viewLifecycleOwner) {
-            mapView.addMarkers(it)
+            mapView.addMarkers(it.map { bar ->
+                Marker(bar.id, bar.latitude, bar.longitude, bar.name, bar.barType.type)
+            })
         }
 
         filterIcon.setOnClickListener {
@@ -42,6 +51,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 homeViewModel.updateMapFilterStatus(filter, newStatus)
             }
         }
+    }
+
+    private fun onBottomViewClick(bar: BarDto) {
+        homeViewModel.onBarClick(bar.id)
     }
 
     override fun getViewModel(): BaseViewModel {

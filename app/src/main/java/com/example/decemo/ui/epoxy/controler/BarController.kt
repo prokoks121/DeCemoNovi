@@ -68,6 +68,7 @@ class BarController(val context: Context) : EpoxyController() {
                 lat(bar.latitude)
                 lon(bar.longitude)
                 barName(bar.name)
+                barType(bar.barType.type)
                 addIf(mapVisibility, this@BarController)
             }
 

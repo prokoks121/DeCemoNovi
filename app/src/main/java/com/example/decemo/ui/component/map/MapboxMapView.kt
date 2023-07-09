@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.BarDto
+import com.example.decemo.ui.component.map.model.Marker
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.camera.CameraPosition
@@ -28,23 +28,24 @@ import com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager
 import com.mapbox.mapboxsdk.style.layers.CircleLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 
-
 @SuppressLint("ViewConstructor")
 class MapboxMapView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : PermissionsListener, OnRequestPermissionsResultCallback,
     MapView(context, attrs) {
-    private var bars: List<BarDto> = listOf()
-
+    private var markers: List<Marker> = listOf()
     private lateinit var mapboxMaps: MapboxMap
     private lateinit var markerViewManager: MarkerViewManager
     private var markerViews = listOf<MarkerView>()
     private lateinit var permissionsManager: PermissionsManager
     private var lastZoom = 12.0
+    private var position: CameraPosition? = null
+    var onMarkerClick: (marker: Marker) -> Unit = {}
 
     init {
         initializeMap()
     }
 
-    private fun generateMarkers(bars: List<BarDto>): List<MarkerView> {
+    @SuppressLint("InflateParams")
+    private fun generateMarkers(markers: List<Marker>): List<MarkerView> {
         if (!this::markerViewManager.isInitialized) {
             return listOf()
         }
@@ -54,16 +55,16 @@ class MapboxMapView @JvmOverloads constructor(context: Context, attrs: Attribute
                 markerViewManager.removeMarker(it)
             }
         }
-        val markers = bars.map { bar ->
+        val viewMarkers = markers.map { marker ->
             val customView: View = LayoutInflater.from(context).inflate(R.layout.custom_marker, null)
             val markerIcon = customView.findViewById<ImageView>(R.id.mapViewIcon)
 
             customView.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
             customView.setOnClickListener {
-                BarBottomView(bar, this, context, onBottomViewClick)
+                onMarkerClick(marker)
             }
 
-            when (bar.barType.type) {
+            when (marker.type) {
                 // TODO(Deprecated da se sredi)
                 // TODO(Da se izbaci deo logike odavde)
                 "Kafići" -> markerIcon.setImageResource(R.drawable.coffee)
@@ -71,18 +72,12 @@ class MapboxMapView @JvmOverloads constructor(context: Context, attrs: Attribute
                 "Kafane" -> markerIcon.setImageResource(R.drawable.beer)
                 else -> markerIcon.setImageResource(R.drawable.placeholder)
             }
-            val markerView = MarkerView(LatLng(bar.latitude, bar.longitude), customView)
+            val markerView = MarkerView(LatLng(marker.lat, marker.lon), customView)
             markerViewManager.addMarker(markerView)
             markerView
         }
-        return markers
+        return viewMarkers
     }
-
-    fun setOnBottomViewClick(onBottomViewClick: (BarDto) -> Unit) {
-        this.onBottomViewClick = onBottomViewClick
-    }
-
-    private var onBottomViewClick = { _: BarDto -> }
 
     @SuppressLint("ResourceAsColor")
     private fun initializeMap() {
@@ -90,12 +85,10 @@ class MapboxMapView @JvmOverloads constructor(context: Context, attrs: Attribute
             mapboxMaps = mapboxMap!!
             mapboxMaps.uiSettings.isAttributionEnabled = false
             mapboxMaps.uiSettings.isLogoEnabled = false
-            val position = CameraPosition.Builder()
-                // TODO(Kroz konstruktor da se prosledjuje)
-                .target(LatLng(44.786604, 20.4717838))
-                .zoom(12.0)
-                .build()
-            mapboxMaps.cameraPosition = position
+
+            if (position != null) {
+                mapboxMaps.cameraPosition = position!!
+            }
             mapboxMaps.setStyle(Style.MAPBOX_STREETS) { style: Style ->
                 enableLocationComponent(style)
                 val circleLayer = CircleLayer("layer-id", "source-id")
@@ -105,7 +98,7 @@ class MapboxMapView @JvmOverloads constructor(context: Context, attrs: Attribute
                 )
                 style.addLayer(circleLayer)
                 markerViewManager = MarkerViewManager(this, mapboxMaps)
-                markerViews = generateMarkers(bars)
+                markerViews = generateMarkers(markers)
                 onCameraIdle()
             }
         }
@@ -172,8 +165,19 @@ class MapboxMapView @JvmOverloads constructor(context: Context, attrs: Attribute
         mapboxMaps.animateCamera(CameraUpdateFactory.newCameraPosition(position), 2000)
     }
 
-    fun addMarkers(bars: List<BarDto>) {
-        this.bars = bars
-        markerViews = generateMarkers(bars)
+    fun addMarkers(markers: List<Marker>) {
+        this.markers = markers
+        markerViews = generateMarkers(markers)
+    }
+
+    fun setCameraPosition(lat: Double, lon: Double, zoom: Double) {
+        position = CameraPosition.Builder()
+            .target(LatLng(lat, lon))
+            .zoom(zoom)
+            .build()
+
+        if (this::markerViewManager.isInitialized) {
+            mapboxMaps.cameraPosition = position!!
+        }
     }
 }

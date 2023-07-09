@@ -8,12 +8,8 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.example.decemo.R
-import com.mapbox.mapboxsdk.annotations.MarkerOptions
-import com.mapbox.mapboxsdk.camera.CameraPosition
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.MapView
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
+import com.example.decemo.ui.component.map.MapboxMapView
+import com.example.decemo.ui.component.map.model.Marker
 
 
 @SuppressLint("NonConstantResourceId")
@@ -30,34 +26,19 @@ abstract class MapBoxEpoxyModel : EpoxyModelWithHolder<MapBoxEpoxyModel.ViewHold
     var lon: Double? = null
 
     @EpoxyAttribute
+    lateinit var barType: String
+
+    @EpoxyAttribute
     lateinit var barName: String
 
     override fun bind(view: ViewHolder) {
         super.bind(view)
-        //TODO iskoristiti vec postojecu komponentu
-        view.mapView.getMapAsync { mapboxMap: MapboxMap ->
-            mapboxMap.uiSettings.isAttributionEnabled = false
-            mapboxMap.uiSettings.isLogoEnabled = false
-
-            val position = CameraPosition.Builder()
-                .target(LatLng(lat!!, lon!!))
-                .zoom(13.5)
-                .build()
-            mapboxMap.cameraPosition = position
-            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-
-                // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-                mapboxMap.addMarker(
-                    MarkerOptions()
-                        .position(LatLng(lat!!, lon!!))
-                        .title(barName)
-                )
-            }
-        }
+        view.mapView.setCameraPosition(lat!!, lon!!, 13.5)
+        view.mapView.addMarkers(listOf(Marker(0, lat!!, lon!!, barName, barType)))
     }
 
     class ViewHolder : EpoxyHolder() {
-        lateinit var mapView: MapView
+        lateinit var mapView: MapboxMapView
 
         override fun bindView(itemView: View) {
             mapView = itemView.findViewById(R.id.mapView)
