@@ -6,12 +6,11 @@ data class BarDto(
     var name: String,
     var address: String,
     var services: MutableList<ServiceDto> = mutableListOf(),
-    var workTime: MutableList<String>,
+    var workTime: MutableList<String> = mutableListOf(),
     var latitude: Double,
     var longitude: Double,
     var phoneNumber: String,
     var mainPictureUrl: String,
-    var galleryPictureUrls: MutableList<String>,
-    var barType: BarTypeDto,
-    var events: MutableList<EventDto> = mutableListOf()
+    var galleryPictureUrls: MutableList<String> = mutableListOf(),
+    var barType: BarTypeDto
 )

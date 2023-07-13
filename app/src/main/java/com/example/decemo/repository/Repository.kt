@@ -2,8 +2,8 @@ package com.example.decemo.repository
 
 import com.example.decemo.retrofit.ApiConnection
 import com.example.decemo.retrofit.dto.BarDto
+import com.example.decemo.retrofit.dto.BarEvent
 import com.example.decemo.retrofit.dto.BarTypeDto
-import com.example.decemo.retrofit.dto.EventDto
 
 class Repository(private val connection: ApiConnection) {
 
@@ -29,10 +29,8 @@ class Repository(private val connection: ApiConnection) {
         return Result.success(response.body()!!)
     }
 
-    suspend fun getAllEvents(): Result<MutableList<EventDto>> {
-        val call = connection.getListOfEvents()
-        return runCatching {
-            call.execute().body()!!
-        }
+    suspend fun getAllEvents(): Result<MutableList<BarEvent>> {
+        val response = connection.getListOfEvents()
+        return Result.success(response.body()!!)
     }
 }

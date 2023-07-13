@@ -13,12 +13,15 @@
         <action
             android:id="@+id/action_home2_to_barFragment"
             app:destination="@id/barFragment" />
+        <action
+            android:id="@+id/action_home2_to_search"
+            app:destination="@id/search" />
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/search"-->
-<!--        android:name="com.example.decemo.ui.view.SearchFragment"-->
-<!--        android:label="fragment_search"-->
-<!--        tools:layout="@layout/fragment_search" >-->
+    <fragment
+        android:id="@+id/search"
+        android:name="com.example.decemo.ui.view.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
 <!--        <action-->
 <!--            android:id="@+id/action_search_to_lokalFragment2"-->
 <!--            app:destination="@id/lokalFragment" />-->
@@ -28,7 +31,7 @@
 <!--        <action-->
 <!--            android:id="@+id/action_search_to_searchLokaliFragment"-->
 <!--            app:destination="@id/searchLokaliFragment" />-->
-<!--    </fragment>-->
+    </fragment>
     <fragment
         android:id="@+id/barFragment"
         android:name="com.example.decemo.ui.view.BarFragment"

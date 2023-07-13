@@ -2,6 +2,7 @@ package com.example.decemo.retrofit
 
 
 import com.example.decemo.retrofit.dto.BarDto
+import com.example.decemo.retrofit.dto.BarEvent
 import com.example.decemo.retrofit.dto.BarTypeDto
 import com.example.decemo.retrofit.dto.EventDto
 import retrofit2.Call
@@ -20,8 +21,8 @@ interface ApiConnection {
     @GET("api/v1/bar/types")
     suspend fun getAllBarTypes(): Response<MutableList<BarTypeDto>>
 
-    @GET("api-dogadjaji.php")
-    suspend fun getListOfEvents(): Call<MutableList<EventDto>>
+    @GET("api/v1/events")
+    suspend fun getListOfEvents(): Response<MutableList<BarEvent>>
 
     @GET("api/v1/bar/{id}")
     suspend fun getBar(@Path("id") id: Long): Response<BarDto>
