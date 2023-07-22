@@ -2,13 +2,11 @@ package com.example.decemo.ui.epoxy.controler
 
 import android.content.Context
 import android.view.View
-import android.widget.AutoCompleteTextView
 import com.airbnb.epoxy.Typed3EpoxyController
 import com.airbnb.epoxy.carousel
 import com.example.decemo.retrofit.dto.BarDto
 import com.example.decemo.retrofit.dto.BarEvent
 import com.example.decemo.retrofit.dto.BarTypeDto
-import com.example.decemo.retrofit.dto.EventDto
 import com.example.decemo.ui.epoxy.controler.listeners.SearchControllerListener
 import com.example.decemo.ui.epoxy.model.BarTypeEpoxyViewModel_
 import com.example.decemo.ui.epoxy.model.EventEpoxyViewModel_
@@ -33,7 +31,7 @@ class SearchController(private val context: Context, private val listener: Searc
                 .event(eventDos.events.first())
                 .context(context)
                 .onTouch { _ ->
-//                    listener.onEventClick(eventDos)
+                    listener.onEventClick(events, index)
                 }
         }
 
@@ -48,6 +46,7 @@ class SearchController(private val context: Context, private val listener: Searc
             BarTypeEpoxyViewModel_()
                 .id("bar-types-$index")
                 .barType(barTypeDto)
+                .context(context)
                 //TODO napraviti model koji ima bartype i status
                 .status(true)
                 .myListener(View.OnClickListener {
@@ -73,7 +72,7 @@ class SearchController(private val context: Context, private val listener: Searc
                 bar(barDto)
                 context(context)
                 myListener { _ ->
-//                    listener.onBarClick(barDto)
+                    listener.onBarClick(barDto)
                 }
             }
         }

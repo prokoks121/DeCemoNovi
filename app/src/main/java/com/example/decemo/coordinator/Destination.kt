@@ -4,5 +4,7 @@ enum class Destination {
     MAPS,
     BAR,
     SPLASH,
-    SEARCH
+    SEARCH,
+    BAR_SEARCH,
+    STORY
 }

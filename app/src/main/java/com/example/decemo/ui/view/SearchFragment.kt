@@ -48,8 +48,8 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), SearchControllerL
         viewModel.onBarClick(bar)
     }
 
-    override fun onEventClick(event: EventDto) {
-        viewModel.onEventClick(event)
+    override fun onEventClick(events: List<BarEvent>, position:Int) {
+        viewModel.onEventClick(events, position)
     }
 
     override fun onSearchClick(search: AutoCompleteTextView) {

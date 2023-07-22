@@ -8,10 +8,14 @@ import com.example.decemo.repository.Repository
 import com.example.decemo.retrofit.dto.BarDto
 import com.example.decemo.retrofit.dto.BarEvent
 import com.example.decemo.retrofit.dto.BarTypeDto
-import com.example.decemo.retrofit.dto.EventDto
 import kotlinx.coroutines.launch
 
 class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
+
+    lateinit var goToBar: (Long) -> Unit
+
+    lateinit var goToBarSearch: () -> Unit
+    lateinit var goToStory: (Pair<List<BarEvent>, Int>) -> Unit
 
     private lateinit var selectedBarType: BarTypeDto
 
@@ -65,14 +69,15 @@ class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
     }
 
     fun onBarClick(bar: BarDto) {
-
+        goToBar(bar.id)
     }
 
-    fun onEventClick(event: EventDto) {
+    fun onEventClick(events: List<BarEvent>, position: Int) {
         //        val action = SearchFragmentDirections.actionSearchToStoryFragment(
 //            StoryFragment.Data(data.dogadjaji, position)
 //        )
 //        requireView().findNavController().navigate(action)
+        goToStory(Pair(events, position))
     }
 
     fun onSearchClick(search: AutoCompleteTextView) {
@@ -82,6 +87,7 @@ class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
 //        )
 //        val action = SearchFragmentDirections.actionSearchToSearchLokaliFragment(uri = ser)
 //        findNavController().navigate(action, extras)
+        goToBarSearch()
     }
 
     fun onBarTypeClick(barType: BarTypeDto) {

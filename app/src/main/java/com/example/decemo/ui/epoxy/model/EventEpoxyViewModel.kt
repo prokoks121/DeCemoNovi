@@ -27,6 +27,7 @@ abstract class EventEpoxyViewModel : EpoxyModelWithHolder<EventEpoxyViewModel.Ev
 
     @EpoxyAttribute
     lateinit var context: Context
+
     @SuppressLint("ClickableViewAccessibility")
     override fun bind(holder: EventHolder) {
         super.bind(holder)

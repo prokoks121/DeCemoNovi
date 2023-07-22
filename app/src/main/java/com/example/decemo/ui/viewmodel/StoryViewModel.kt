@@ -1,12 +1,10 @@
-//package com.example.decemo.ui.viewmodel
-//
-//import androidx.lifecycle.MutableLiveData
-//import androidx.lifecycle.ViewModel
-//import com.example.decemo.ui.view.StoryFragment
-//
-//class StoryViewModel : ViewModel() {
-//
-//    val data by lazy {
-//        MutableLiveData<StoryFragment.Data>()
-//    }
-//}
+package com.example.decemo.ui.viewmodel
+
+import com.example.decemo.repository.Repository
+import com.example.decemo.retrofit.dto.BarEvent
+
+class StoryViewModel(repository: Repository) : BaseViewModel(repository) {
+
+    lateinit var barEvents: List<BarEvent>
+    var startPosition: Int = 0
+}

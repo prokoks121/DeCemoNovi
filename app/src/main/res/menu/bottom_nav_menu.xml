@@ -5,11 +5,11 @@
         android:icon="@drawable/korisnik"
         android:title="Korisnik" />
     <item
-        android:id="@+id/home2"
+        android:id="@+id/home_menu_item"
         android:icon="@drawable/mapa"
-        android:title="Početna" />
+        android:title="Home" />
     <item
-        android:id="@+id/search"
+        android:id="@+id/search_menu_item"
         android:icon="@drawable/ic_baseline_local_cafe_24"
-        android:title="Pretraga" />
+        android:title="Search" />
 </menu>

@@ -29,6 +29,11 @@ class Repository(private val connection: ApiConnection) {
         return Result.success(response.body()!!)
     }
 
+    suspend fun getFilteredBars(filter:String): Result<MutableList<BarDto>> {
+        val response = connection.getFilteredBars(filter)
+        return Result.success(response.body() ?: mutableListOf())
+    }
+
     suspend fun getAllEvents(): Result<MutableList<BarEvent>> {
         val response = connection.getListOfEvents()
         return Result.success(response.body()!!)
