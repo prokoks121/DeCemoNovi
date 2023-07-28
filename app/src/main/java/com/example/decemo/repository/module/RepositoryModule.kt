@@ -4,5 +4,5 @@ import com.example.decemo.repository.Repository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    factory { Repository(get()) }
+    factory { Repository(get(), get()) }
 }

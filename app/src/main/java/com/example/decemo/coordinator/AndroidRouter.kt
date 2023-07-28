@@ -5,11 +5,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.decemo.MainActivity
 import com.example.decemo.R
+import com.example.decemo.coordinator.navigations.LoginCoordinator
 import com.example.decemo.coordinator.navigations.MapCoordinator
 import com.example.decemo.coordinator.navigations.SearchCoordinator
 import com.example.decemo.ui.view.BarFragment
 import com.example.decemo.ui.view.BarSearchFragment
 import com.example.decemo.ui.view.HomeFragment
+import com.example.decemo.ui.view.LoginFragment
 import com.example.decemo.ui.view.SearchFragment
 import com.example.decemo.ui.view.SearchFragmentDirections
 import com.example.decemo.ui.view.StoryFragment
@@ -67,6 +69,13 @@ class AndroidRouter(private val activity: MainActivity) : Router() {
                     onFinish(it.getViewModel())
                 }
             }
+
+            Destination.LOGIN -> {
+                navigation.navigate(R.id.action_global_loginFragment)
+                activity.fragmentCreated<LoginFragment> {
+                    onFinish(it.getViewModel())
+                }
+            }
         }
     }
 
@@ -80,6 +89,10 @@ class AndroidRouter(private val activity: MainActivity) : Router() {
 
                 R.id.home_menu_item -> {
                     MapCoordinator(this).navigate()
+                }
+
+                R.id.user_menu_item -> {
+                    LoginCoordinator(this).navigate()
                 }
             }
             false

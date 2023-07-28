@@ -41,5 +41,10 @@
             app:destination="@id/barSearchFragment" />
     </fragment><action android:id="@+id/action_global_search"
     app:destination="@id/search"/><action android:id="@+id/action_global_barFragment" app:destination="@id/barFragment"/><action android:id="@+id/action_global_home2" app:destination="@id/home2"/><action android:id="@+id/action_global_story" app:destination="@id/story"/>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.decemo.ui.view.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" /><action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
 
 </navigation>

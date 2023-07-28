@@ -6,5 +6,6 @@ enum class Destination {
     SPLASH,
     SEARCH,
     BAR_SEARCH,
-    STORY
+    STORY,
+    LOGIN
 }
