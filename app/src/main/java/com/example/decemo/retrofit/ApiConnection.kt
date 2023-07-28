@@ -6,9 +6,11 @@ import com.example.decemo.retrofit.dto.BarEvent
 import com.example.decemo.retrofit.dto.BarTypeDto
 import com.example.decemo.retrofit.dto.JwtToken
 import com.example.decemo.retrofit.dto.LoginRequest
+import com.example.decemo.retrofit.dto.UserDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -34,4 +36,7 @@ interface ApiConnection {
 
     @POST("api/v1/user/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<JwtToken>
+
+    @GET("api/v1/user/get")
+    suspend fun getUser(@Header("Authorization") authHeader: String): Response<UserDto>
 }

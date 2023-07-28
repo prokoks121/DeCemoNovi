@@ -34,44 +34,79 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/email_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:shadowColor="#000000"
+            android:shadowDx="-2"
+            android:shadowDy="-2"
+            android:shadowRadius="2"
+            android:text="Email"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:translationZ="1dp"
+            app:layout_constraintStart_toStartOf="@id/login_text"
+            app:layout_constraintTop_toBottomOf="@id/login_text" />
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/input_background"
             android:ems="10"
-            android:hint="Email"
+            android:hint="example@gmail.com"
             android:inputType="textPersonName"
             android:padding="20dp"
-            android:queryHint="Pretraga"
             android:textColor="@color/white"
-            android:textColorHint="#FFFFFF"
+            android:textColorHint="#D3FFFFFF"
             android:textSize="20sp"
             android:transitionName="search"
+            android:translationY="-13dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/login_text"
-            app:layout_constraintTop_toBottomOf="@id/login_text" />
+            app:layout_constraintTop_toBottomOf="@id/email_text" />
+
+        <TextView
+            android:id="@+id/password_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:shadowColor="#000000"
+            android:shadowDx="-2"
+            android:shadowDy="-2"
+            android:shadowRadius="2"
+            android:text="Password"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:translationZ="1dp"
+            app:layout_constraintStart_toStartOf="@id/login_text"
+            app:layout_constraintTop_toBottomOf="@id/login_email" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/input_background"
             android:ems="10"
-            android:hint="Lozinka"
+            android:hint="*******"
             android:inputType="textPersonName"
             android:padding="20dp"
             android:queryHint="Pretraga"
             android:textColor="@color/white"
-            android:textColorHint="#FFFFFF"
+            android:textColorHint="#D3FFFFFF"
             android:textSize="20sp"
             android:transitionName="search"
-            app:layout_constraintEnd_toEndOf="@id/login_email"
+            android:translationY="-13dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/login_email"
-            app:layout_constraintTop_toBottomOf="@id/login_email" />
+            app:layout_constraintTop_toBottomOf="@id/password_text" />
 
         <Button
             android:id="@+id/login_submit"
@@ -79,10 +114,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/naran"
-            android:paddingHorizontal="25dp"
-            android:paddingVertical="5dp"
+            android:paddingHorizontal="35dp"
+            android:paddingVertical="15dp"
             android:text="Prijavi se"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/login_password" />

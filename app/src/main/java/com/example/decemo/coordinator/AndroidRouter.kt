@@ -8,6 +8,8 @@ import com.example.decemo.R
 import com.example.decemo.coordinator.navigations.LoginCoordinator
 import com.example.decemo.coordinator.navigations.MapCoordinator
 import com.example.decemo.coordinator.navigations.SearchCoordinator
+import com.example.decemo.coordinator.navigations.UserCoordinator
+import com.example.decemo.token.getString
 import com.example.decemo.ui.view.BarFragment
 import com.example.decemo.ui.view.BarSearchFragment
 import com.example.decemo.ui.view.HomeFragment
@@ -15,6 +17,7 @@ import com.example.decemo.ui.view.LoginFragment
 import com.example.decemo.ui.view.SearchFragment
 import com.example.decemo.ui.view.SearchFragmentDirections
 import com.example.decemo.ui.view.StoryFragment
+import com.example.decemo.ui.view.UserFragment
 import com.example.decemo.ui.viewmodel.BaseViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -76,6 +79,13 @@ class AndroidRouter(private val activity: MainActivity) : Router() {
                     onFinish(it.getViewModel())
                 }
             }
+
+            Destination.USER -> {
+                navigation.navigate(R.id.action_global_userFragment)
+                activity.fragmentCreated<UserFragment> {
+                    onFinish(it.getViewModel())
+                }
+            }
         }
     }
 
@@ -92,7 +102,11 @@ class AndroidRouter(private val activity: MainActivity) : Router() {
                 }
 
                 R.id.user_menu_item -> {
-                    LoginCoordinator(this).navigate()
+                    if (activity.application.getString("ACCESS_TOKEN").isNullOrEmpty()) {
+                        LoginCoordinator(this).navigate()
+                    } else {
+                        UserCoordinator(this).navigate()
+                    }
                 }
             }
             false

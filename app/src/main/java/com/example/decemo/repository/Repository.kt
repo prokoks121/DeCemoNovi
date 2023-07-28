@@ -6,6 +6,7 @@ import com.example.decemo.retrofit.dto.BarEvent
 import com.example.decemo.retrofit.dto.BarTypeDto
 import com.example.decemo.retrofit.dto.JwtToken
 import com.example.decemo.retrofit.dto.LoginRequest
+import com.example.decemo.retrofit.dto.UserDto
 import com.example.decemo.token.TokenStorage
 
 class Repository(private val connection: ApiConnection, private val tokenStorage: TokenStorage) {
@@ -50,6 +51,23 @@ class Repository(private val connection: ApiConnection, private val tokenStorage
             return Result.success(response.body()!!)
         }
         return Result.failure(NullPointerException())
+    }
+
+    suspend fun getUser(): Result<UserDto> {
+        val token = "Bearer ${tokenStorage.getAccessToken()}"
+        val response = connection.getUser(token)
+        if (response.isSuccessful) {
+            return Result.success(response.body()!!)
+        }
+        return Result.failure(NullPointerException())
+    }
+
+    fun logoutUser() {
+        tokenStorage.clearTokens()
+    }
+
+    fun tokenExists(): Boolean {
+        return tokenStorage.getAccessToken() != null
     }
 
 }

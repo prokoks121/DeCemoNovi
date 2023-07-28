@@ -46,5 +46,10 @@
         android:name="com.example.decemo.ui.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" /><action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.decemo.ui.view.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" /><action android:id="@+id/action_global_userFragment" app:destination="@id/userFragment"/>
 
 </navigation>

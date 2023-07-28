@@ -15,7 +15,6 @@ class LoginCoordinator(router: Router) : BaseCoordinator(router) {
     }
 
     private fun navigateToUser() {
-        //TODO
+        UserCoordinator(router).navigate()
     }
-
 }

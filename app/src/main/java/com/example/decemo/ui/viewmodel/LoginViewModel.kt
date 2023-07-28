@@ -11,10 +11,8 @@ class LoginViewModel(repository: Repository) : BaseViewModel(repository) {
     fun onSubmitClick(email: String, password: String) {
         viewModelScope.launch {
             repository.loginUser(email, password).onSuccess {
-                println("User is login")
-//                goToUser()
+                goToUser()
             }.onFailure {
-                println("User is invalid")
                 // TODO() show popup
             }
         }
