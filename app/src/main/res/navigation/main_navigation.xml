@@ -50,6 +50,12 @@
         android:id="@+id/userFragment"
         android:name="com.example.decemo.ui.view.UserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" /><action android:id="@+id/action_global_userFragment" app:destination="@id/userFragment"/>
+        tools:layout="@layout/fragment_user" />
+    <action android:id="@+id/action_global_userFragment" app:destination="@id/userFragment" />
+    <fragment
+        android:id="@+id/reservationFragment"
+        android:name="com.example.decemo.ui.view.ReservationFragment"
+        android:label="fragment_reservation"
+        tools:layout="@layout/fragment_reservation" /><action android:id="@+id/action_global_reservationFragment" app:destination="@id/reservationFragment"/>
 
 </navigation>

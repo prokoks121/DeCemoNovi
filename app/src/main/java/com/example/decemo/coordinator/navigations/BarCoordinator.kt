@@ -8,11 +8,16 @@ import com.example.decemo.ui.viewmodel.BarViewModel
 class BarCoordinator(router: Router) : BaseCoordinator(router) {
 
     override fun navigate(data: Any?) {
-        val barId = data as Long
+        val barId = data as Long?
         router.navigateTo(Destination.BAR) {
             (it as BarViewModel).apply {
                 this.barId = barId
+                this.goToReservation = ::goToReservation
             }
         }
+    }
+
+    private fun goToReservation(barId: Long?) {
+        ReservationCoordinator(router).navigate(barId)
     }
 }

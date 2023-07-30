@@ -31,6 +31,9 @@ class BarFragment : BaseFragment(R.layout.fragment_lokal) {
     private fun setEpoxy(view: View) {
         val epoxyView = view.findViewById<EpoxyRecyclerView>(R.id.lokalEpoxy)
         controller = BarController(requireContext())
+        controller.onReservationClick {
+            barViewModel.onReservationClick()
+        }
         epoxyView.setController(controller)
     }
 }

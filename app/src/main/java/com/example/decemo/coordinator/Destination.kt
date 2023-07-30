@@ -8,5 +8,6 @@ enum class Destination {
     BAR_SEARCH,
     STORY,
     LOGIN,
-    USER
+    USER,
+    RESERVATION
 }

@@ -21,6 +21,9 @@ abstract class BarLogoEpoxyModel : EpoxyModelWithHolder<BarLogoEpoxyModel.ViewHo
     lateinit var context: Context
 
     @EpoxyAttribute
+    lateinit var onReservationIconClick: () -> Unit
+
+    @EpoxyAttribute
     lateinit var img: String
     override fun bind(view: ViewHolder) {
         super.bind(view)
@@ -29,13 +32,18 @@ abstract class BarLogoEpoxyModel : EpoxyModelWithHolder<BarLogoEpoxyModel.ViewHo
             .optionalCircleCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(view.img)
+        view.reservationIcon.setOnClickListener {
+            onReservationIconClick()
+        }
     }
 
     class ViewHolder : EpoxyHolder() {
         lateinit var img: ImageView
+        lateinit var reservationIcon: ImageView
 
         override fun bindView(itemView: View) {
             img = itemView.findViewById(R.id.slikaLokala)
+            reservationIcon = itemView.findViewById(R.id.reservation_icon)
         }
     }
 }

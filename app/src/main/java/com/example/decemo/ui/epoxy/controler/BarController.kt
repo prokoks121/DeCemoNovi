@@ -16,6 +16,7 @@ import com.example.decemo.ui.epoxy.model.MeniEpoxyModel_
 class BarController(val context: Context) : EpoxyController() {
     private var mapVisibility = true
     private var bar: BarDto? = null
+    private var onReservationClick: () -> Unit = {}
 
     fun setBar(bar: BarDto) {
         this.bar = bar
@@ -40,12 +41,17 @@ class BarController(val context: Context) : EpoxyController() {
         requestModelBuild()
     }
 
+    fun onReservationClick(onReservationClick: () -> Unit) {
+        this.onReservationClick = onReservationClick
+    }
+
     override fun buildModels() {
         bar?.let { bar ->
             BarLogoEpoxyModel_().apply {
                 id("logo")
                 img(bar.mainPictureUrl)
                 context(this@BarController.context)
+                onReservationIconClick = onReservationClick
                 addTo(this@BarController)
             }
 
