@@ -3,7 +3,7 @@ package com.example.decemo.coordinator.navigations
 import com.example.decemo.coordinator.BaseCoordinator
 import com.example.decemo.coordinator.Destination
 import com.example.decemo.coordinator.Router
-import com.example.decemo.retrofit.dto.BarEvent
+import com.example.decemo.model.BarEvent
 import com.example.decemo.ui.viewmodel.SearchViewModel
 
 class SearchCoordinator(router: Router) : BaseCoordinator(router) {
@@ -26,7 +26,7 @@ class SearchCoordinator(router: Router) : BaseCoordinator(router) {
         BarSearchCoordinator(router).navigate()
     }
 
-    private fun navigateToStory(pair: Pair<List<BarEvent>,Int>) {
+    private fun navigateToStory(pair: Pair<List<BarEvent>, Int>) {
         StoryCoordinator(router).navigate(pair)
     }
 }

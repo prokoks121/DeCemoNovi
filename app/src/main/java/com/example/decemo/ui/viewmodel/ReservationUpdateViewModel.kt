@@ -3,8 +3,8 @@ package com.example.decemo.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.decemo.model.Reservation
 import com.example.decemo.repository.Repository
-import com.example.decemo.retrofit.dto.Reservation
 import com.example.decemo.retrofit.request.ReservationRequest
 import kotlinx.coroutines.launch
 
@@ -60,7 +60,7 @@ class ReservationUpdateViewModel(repository: Repository) : BaseViewModel(reposit
 
     override fun onViewCreated() {
         super.onViewCreated()
-        if (reservationId ==null){
+        if (reservationId == null) {
             goBack()
             return
         }

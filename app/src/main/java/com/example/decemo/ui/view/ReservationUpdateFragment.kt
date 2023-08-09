@@ -30,7 +30,6 @@ class ReservationUpdateFragment : BaseFragment(R.layout.fragment_reservation_upd
     private lateinit var numOfReservations: TextInputEditText
     private lateinit var updateButton: Button
     private lateinit var deleteButton: Button
-
     private val dateFormat by lazy {
         SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
             timeZone = TimeZone.getTimeZone("UTC")

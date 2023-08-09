@@ -46,18 +46,19 @@ open class BaseViewModel(val repository: Repository) : ViewModel() {
         _onBackPress.value = Unit
     }
 
-    fun clearOnBackPress(){
+    fun clearOnBackPress() {
         _onBackPress.value = null
     }
 
-    fun clearSuccessMessage(){
+    fun clearSuccessMessage() {
         _successMessage.value = null
     }
-    fun clearErrorMessage(){
+
+    fun clearErrorMessage() {
         _errorMessage.value = null
     }
 
-    fun clearErrorMessageDialog(){
+    fun clearErrorMessageDialog() {
         _errorMessageDialog.value = null
     }
 }

@@ -10,11 +10,11 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.BarDto
+import com.example.decemo.model.Bar
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
 
-class BarBottomView(private val bar: BarDto, val view: View, val context: Context, val onViewClick: (BarDto) -> Unit) {
+class BarBottomView(private val bar: Bar, val view: View, val context: Context, val onViewClick: (Bar) -> Unit) {
     private val sheet: BottomSheetDialog = BottomSheetDialog(context, R.style.SheetDialog)
 
     // TODO(Da se vuce odkenkuda)

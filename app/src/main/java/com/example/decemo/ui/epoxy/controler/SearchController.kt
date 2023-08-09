@@ -4,9 +4,9 @@ import android.content.Context
 import android.view.View
 import com.airbnb.epoxy.Typed3EpoxyController
 import com.airbnb.epoxy.carousel
-import com.example.decemo.retrofit.dto.BarDto
-import com.example.decemo.retrofit.dto.BarEvent
-import com.example.decemo.retrofit.dto.BarTypeDto
+import com.example.decemo.model.Bar
+import com.example.decemo.model.BarEvent
+import com.example.decemo.model.BarType
 import com.example.decemo.ui.epoxy.controler.listeners.SearchControllerListener
 import com.example.decemo.ui.epoxy.model.BarTypeEpoxyViewModel_
 import com.example.decemo.ui.epoxy.model.EventEpoxyViewModel_
@@ -15,9 +15,9 @@ import com.example.decemo.ui.epoxy.model.searchEpoxyView
 import com.example.decemo.ui.epoxy.model.textView
 
 class SearchController(private val context: Context, private val listener: SearchControllerListener) :
-    Typed3EpoxyController<List<BarDto>?, List<BarEvent>?, List<BarTypeDto>?>() {
+    Typed3EpoxyController<List<Bar>?, List<BarEvent>?, List<BarType>?>() {
 
-    override fun buildModels(bars: List<BarDto>?, events: List<BarEvent>?, barTypes: List<BarTypeDto>?) {
+    override fun buildModels(bars: List<Bar>?, events: List<BarEvent>?, barTypes: List<BarType>?) {
         searchEpoxyView {
             id("search")
             onClick {

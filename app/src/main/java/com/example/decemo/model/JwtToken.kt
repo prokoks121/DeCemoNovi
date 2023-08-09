@@ -1,4 +1,4 @@
-package com.example.decemo.retrofit.dto
+package com.example.decemo.model
 
 import java.util.Date
 

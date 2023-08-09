@@ -1,8 +1,6 @@
-package com.example.decemo.retrofit.dto
+package com.example.decemo.model
 
-import java.time.ZonedDateTime
-
-data class EventDto(
+data class Event(
     var id: Long = 0,
     var name: String,
     var imageUrl: String,

@@ -4,7 +4,7 @@ import android.content.Context
 import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.EpoxyController
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.BarDto
+import com.example.decemo.model.Bar
 import com.example.decemo.ui.epoxy.model.BarLogoEpoxyModel_
 import com.example.decemo.ui.epoxy.model.BarNameEpoxyModel_
 import com.example.decemo.ui.epoxy.model.BarServicesEpoxyModel_
@@ -15,15 +15,14 @@ import com.example.decemo.ui.epoxy.model.MeniEpoxyModel_
 
 class BarController(val context: Context) : EpoxyController() {
     private var mapVisibility = true
-    private var bar: BarDto? = null
+    private var bar: Bar? = null
     private var onReservationClick: () -> Unit = {}
 
-    fun setBar(bar: BarDto) {
+    fun setBar(bar: Bar) {
         this.bar = bar
         requestModelBuild()
     }
 
-    //TODO Srediti izgled
     private fun hide(type: MeniEpoxyModel.MeniType) {
         when (type) {
             MeniEpoxyModel.MeniType.MAP -> {

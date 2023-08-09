@@ -19,7 +19,6 @@ abstract class KotlinHolder : EpoxyHolder() {
                 ?: throw IllegalStateException("View ID $id for '${prop.name}' not found.")
         }
 
-
     /**
      * Taken from Kotterknife.
      * https://github.com/JakeWharton/kotterknife

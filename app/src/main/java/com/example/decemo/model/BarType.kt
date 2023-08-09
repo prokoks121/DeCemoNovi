@@ -1,6 +1,6 @@
-package com.example.decemo.retrofit.dto
+package com.example.decemo.model
 
-data class BarTypeDto(
+data class BarType(
     var id: Long,
     var type: String,
     var iconUrl: String

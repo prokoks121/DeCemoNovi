@@ -1,6 +1,6 @@
-package com.example.decemo.retrofit.dto
+package com.example.decemo.model
 
-data class UserDto(
+data class User(
     val id: Long,
     val email: String,
     val fullName: String,

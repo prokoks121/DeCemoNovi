@@ -9,8 +9,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 fun networkModule(context: Application): Module = module {
-//    factory { AuthInterceptor() }
-    single<TokenStorage> {
+    single {
         TokenStorage(context)
     }
     factory { provideOkHttpClient() }

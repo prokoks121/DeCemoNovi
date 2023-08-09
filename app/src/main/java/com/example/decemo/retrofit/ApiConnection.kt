@@ -1,13 +1,13 @@
 package com.example.decemo.retrofit
 
 
-import com.example.decemo.retrofit.dto.BarDto
-import com.example.decemo.retrofit.dto.BarEvent
-import com.example.decemo.retrofit.dto.BarTypeDto
-import com.example.decemo.retrofit.dto.JwtToken
-import com.example.decemo.retrofit.dto.LoginRequest
-import com.example.decemo.retrofit.dto.Reservation
-import com.example.decemo.retrofit.dto.UserDto
+import com.example.decemo.model.Bar
+import com.example.decemo.model.BarEvent
+import com.example.decemo.model.BarType
+import com.example.decemo.model.JwtToken
+import com.example.decemo.model.LoginRequest
+import com.example.decemo.model.Reservation
+import com.example.decemo.model.User
 import com.example.decemo.retrofit.request.ReservationRequest
 import retrofit2.Response
 import retrofit2.http.Body
@@ -20,34 +20,34 @@ import retrofit2.http.Query
 
 interface ApiConnection {
     @GET("api/v1/explorer/bars")
-    suspend fun getAllBars(): Response<MutableList<BarDto>>
+    suspend fun getAllBars(): Response<MutableList<Bar>>
 
     @GET("api/v1/explorer/bars")
-    suspend fun getFilteredBarsByType(@Query("bartTypes") filterTypes: List<Long>): Response<MutableList<BarDto>>
+    suspend fun getFilteredBarsByType(@Query("bartTypes") filterTypes: List<Long>): Response<MutableList<Bar>>
 
     @GET("api/v1/explorer/bar/types")
-    suspend fun getAllBarTypes(): Response<MutableList<BarTypeDto>>
+    suspend fun getAllBarTypes(): Response<MutableList<BarType>>
 
     @GET("api/v1/explorer/events")
     suspend fun getListOfEvents(): Response<MutableList<BarEvent>>
 
     @GET("api/v1/explorer/bar/find/{filter}")
-    suspend fun getFilteredBars(@Path("filter") filter: String): Response<MutableList<BarDto>>
+    suspend fun getFilteredBars(@Path("filter") filter: String): Response<MutableList<Bar>>
 
     @GET("api/v1/explorer/bar/{id}")
-    suspend fun getBar(@Path("id") id: Long): Response<BarDto>
+    suspend fun getBar(@Path("id") id: Long): Response<Bar>
 
     @POST("api/v1/user/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<JwtToken>
 
     @GET("api/v1/user/get")
-    suspend fun getUser(@Header("Authorization") authHeader: String): Response<UserDto>
+    suspend fun getUser(@Header("Authorization") authHeader: String): Response<User>
 
     @GET("api/v1/reservation/reservations")
     suspend fun getReservations(@Header("Authorization") authHeader: String): Response<List<Reservation>>
 
     @GET("api/v1/reservation/{id}")
-    suspend fun getReservation(@Header("Authorization") authHeader: String, @Path("id") id:Long): Response<Reservation>
+    suspend fun getReservation(@Header("Authorization") authHeader: String, @Path("id") id: Long): Response<Reservation>
 
     @DELETE("api/v1/reservation/reserve/{id}")
     suspend fun deleteReservation(@Header("Authorization") authHeader: String, @Path("id") id: Long): Response<Unit>

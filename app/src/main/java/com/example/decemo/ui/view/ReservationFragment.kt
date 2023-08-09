@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.BarDto
+import com.example.decemo.model.Bar
 import com.example.decemo.ui.viewmodel.BaseViewModel
 import com.example.decemo.ui.viewmodel.ReservationViewModel
 import com.google.android.material.datepicker.CalendarConstraints
@@ -72,7 +72,7 @@ class ReservationFragment : BaseFragment(R.layout.fragment_reservation) {
         }
     }
 
-    private fun setBar(bar: BarDto) {
+    private fun setBar(bar: Bar) {
         barName.text = bar.name
         barType.text = bar.barType.type
         loadImage(bar.mainPictureUrl)

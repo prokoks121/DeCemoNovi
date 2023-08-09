@@ -57,7 +57,7 @@ abstract class BaseFragment(private val layoutResId: Int) : Fragment() {
     }
 
     private fun showErrorDialog(message: String) {
-        showDialog("Greska", message, false){
+        showDialog("Greska", message, false) {
             onBackPress()
         }
     }

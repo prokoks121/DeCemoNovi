@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.BarEvent
+import com.example.decemo.model.BarEvent
 
 class StoryViewFragment(private val barEvent: BarEvent, private val callBacks: StoryController) : Fragment() {
 

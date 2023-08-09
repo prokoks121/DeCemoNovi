@@ -11,14 +11,14 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.EventDto
+import com.example.decemo.model.Event
 import com.example.decemo.ui.epoxy.holder.KotlinHolder
 
 @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.epoxy_dogadjaji_item)
 abstract class EventEpoxyViewModel : EpoxyModelWithHolder<EventEpoxyViewModel.EventHolder>() {
     @EpoxyAttribute
-    lateinit var event: EventDto
+    lateinit var event: Event
 
     @EpoxyAttribute
     lateinit var onTouch:View.OnClickListener

@@ -1,5 +1,6 @@
 package com.example.decemo.ui.epoxy.model
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,6 +10,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.example.decemo.R
 
+@SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.epoxy_lokal_usluge)
 abstract class BarServicesEpoxyModel : EpoxyModelWithHolder<BarServicesEpoxyModel.ViewHolder>() {
     @EpoxyAttribute

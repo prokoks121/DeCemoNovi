@@ -3,14 +3,14 @@ package com.example.decemo.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.decemo.model.Bar
 import com.example.decemo.model.MapFilter
 import com.example.decemo.repository.Repository
-import com.example.decemo.retrofit.dto.BarDto
 import kotlinx.coroutines.launch
 
 class HomeViewModel(repository: Repository) : BaseViewModel(repository) {
-    private val _bars by lazy { MutableLiveData<List<BarDto>>() }
-    val bars: LiveData<List<BarDto>>
+    private val _bars by lazy { MutableLiveData<List<Bar>>() }
+    val bars: LiveData<List<Bar>>
         get() = _bars
 
     var barTypes = listOf<MapFilter>()

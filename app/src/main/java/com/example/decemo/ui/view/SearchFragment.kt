@@ -1,19 +1,15 @@
 package com.example.decemo.ui.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import androidx.core.view.doOnPreDraw
-import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.BarDto
-import com.example.decemo.retrofit.dto.BarEvent
-import com.example.decemo.retrofit.dto.BarTypeDto
-import com.example.decemo.retrofit.dto.EventDto
+import com.example.decemo.model.Bar
+import com.example.decemo.model.BarEvent
+import com.example.decemo.model.BarType
 import com.example.decemo.ui.epoxy.controler.SearchController
 import com.example.decemo.ui.epoxy.controler.listeners.SearchControllerListener
 import com.example.decemo.ui.viewmodel.BaseViewModel
@@ -23,8 +19,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SearchFragment : BaseFragment(R.layout.fragment_search), SearchControllerListener {
     private val viewModel: SearchViewModel by viewModel()
     private lateinit var controller: SearchController
-    private var bars: List<BarDto> = listOf()
-    private var barTypes: List<BarTypeDto> = listOf()
+    private var bars: List<Bar> = listOf()
+    private var barTypes: List<BarType> = listOf()
     private var events: List<BarEvent> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,15 +36,15 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), SearchControllerL
         return viewModel
     }
 
-    override fun onBarTypeClick(barType: BarTypeDto) {
+    override fun onBarTypeClick(barType: BarType) {
         viewModel.onBarTypeClick(barType)
     }
 
-    override fun onBarClick(bar: BarDto) {
+    override fun onBarClick(bar: Bar) {
         viewModel.onBarClick(bar)
     }
 
-    override fun onEventClick(events: List<BarEvent>, position:Int) {
+    override fun onEventClick(events: List<BarEvent>, position: Int) {
         viewModel.onEventClick(events, position)
     }
 

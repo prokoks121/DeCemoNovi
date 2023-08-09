@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.BarDto
+import com.example.decemo.model.Bar
 import com.example.decemo.ui.component.FilterBottomView
 import com.example.decemo.ui.component.map.BarBottomView
 import com.example.decemo.ui.component.map.MapboxMapView
@@ -53,7 +53,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
     }
 
-    private fun onBottomViewClick(bar: BarDto) {
+    private fun onBottomViewClick(bar: Bar) {
         homeViewModel.onBarClick(bar.id)
     }
 

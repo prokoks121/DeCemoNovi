@@ -2,7 +2,7 @@ package com.example.decemo.ui.epoxy.controler
 
 import android.content.Context
 import com.airbnb.epoxy.EpoxyController
-import com.example.decemo.retrofit.dto.Reservation
+import com.example.decemo.model.Reservation
 import com.example.decemo.ui.epoxy.model.userReservationView
 
 class UserReservationController(private val context: Context) : EpoxyController() {

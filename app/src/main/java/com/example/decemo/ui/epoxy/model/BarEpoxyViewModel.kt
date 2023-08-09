@@ -10,7 +10,7 @@ import com.airbnb.epoxy.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.BarDto
+import com.example.decemo.model.Bar
 
 @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.epoxy_lokali_item)
@@ -24,7 +24,7 @@ abstract class BarEpoxyViewModel : EpoxyModelWithHolder<BarEpoxyViewModel.ViewHo
     var myListener: View.OnClickListener? = null
 
     @EpoxyAttribute
-    lateinit var bar: BarDto
+    lateinit var bar: Bar
 
     override fun bind(view: ViewHolder) {
         super.bind(view)

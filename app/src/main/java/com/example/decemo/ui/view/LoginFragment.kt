@@ -21,16 +21,9 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         passwordInput = view.findViewById(R.id.login_password)
         submitButton = view.findViewById(R.id.login_submit)
 
-//        emailInput.addTextChangedListener {
-//            if (!it.isNullOrEmpty() || ){
-//
-//            }
-//        }
-
         submitButton.setOnClickListener {
             loginViewModel.onSubmitClick(emailInput.text.toString(), passwordInput.text.toString())
         }
-
     }
 
     override fun getViewModel(): BaseViewModel {

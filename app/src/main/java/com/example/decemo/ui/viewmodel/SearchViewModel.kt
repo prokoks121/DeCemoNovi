@@ -4,34 +4,31 @@ import android.widget.AutoCompleteTextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.decemo.model.Bar
+import com.example.decemo.model.BarEvent
+import com.example.decemo.model.BarType
 import com.example.decemo.repository.Repository
-import com.example.decemo.retrofit.dto.BarDto
-import com.example.decemo.retrofit.dto.BarEvent
-import com.example.decemo.retrofit.dto.BarTypeDto
 import kotlinx.coroutines.launch
 
 class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
-
     lateinit var goToBar: (Long) -> Unit
-
     lateinit var goToBarSearch: () -> Unit
     lateinit var goToStory: (Pair<List<BarEvent>, Int>) -> Unit
+    private lateinit var selectedBarType: BarType
 
-    private lateinit var selectedBarType: BarTypeDto
-
-    private val _bars: MutableLiveData<List<BarDto>> by lazy { MutableLiveData<List<BarDto>>() }
-    val bars: LiveData<List<BarDto>>
+    private val _bars: MutableLiveData<List<Bar>> by lazy { MutableLiveData<List<Bar>>() }
+    val bars: LiveData<List<Bar>>
         get() = _bars
 
-    private val _barTypes: MutableLiveData<List<BarTypeDto>> by lazy { MutableLiveData<List<BarTypeDto>>() }
-    val barTypes: LiveData<List<BarTypeDto>>
+    private val _barTypes: MutableLiveData<List<BarType>> by lazy { MutableLiveData<List<BarType>>() }
+    val barTypes: LiveData<List<BarType>>
         get() = _barTypes
 
     private val _events: MutableLiveData<List<BarEvent>> by lazy { MutableLiveData<List<BarEvent>>() }
     val events: LiveData<List<BarEvent>>
         get() = _events
 
-    private fun getBars(barType: BarTypeDto) {
+    private fun getBars(barType: BarType) {
         viewModelScope.launch {
             repository.getFilteredBarsByType(listOf(barType.id)).onSuccess {
                 _bars.value = it
@@ -76,7 +73,7 @@ class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
         getEvents()
     }
 
-    fun onBarClick(bar: BarDto) {
+    fun onBarClick(bar: Bar) {
         goToBar(bar.id)
     }
 
@@ -88,7 +85,7 @@ class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
         goToBarSearch()
     }
 
-    fun onBarTypeClick(barType: BarTypeDto) {
+    fun onBarTypeClick(barType: BarType) {
         selectedBarType = barType
         getBars(barType)
     }

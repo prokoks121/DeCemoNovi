@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.airbnb.epoxy.*
 import com.example.decemo.R
-import com.example.decemo.retrofit.dto.BarEvent
+import com.example.decemo.model.BarEvent
 import com.example.decemo.ui.viewmodel.BaseViewModel
 import com.example.decemo.ui.viewmodel.StoryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,7 +33,8 @@ class StoryFragment : BaseFragment(R.layout.fragment_story), StoryViewFragment.S
         return storyViewModel
     }
 
-    private class ViewPagerAdapter(fm: FragmentManager, private val storyController:StoryViewFragment.StoryController) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
+    private class ViewPagerAdapter(fm: FragmentManager, private val storyController: StoryViewFragment.StoryController) :
+        FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         private var events: List<BarEvent> = arrayListOf()
 

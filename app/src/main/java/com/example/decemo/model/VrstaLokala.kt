@@ -6,6 +6,3 @@
 //        var status: Boolean,
 //        val id: Int
 //)
-//
-//
-//
