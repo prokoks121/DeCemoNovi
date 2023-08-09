@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.decemo.R
+import com.example.decemo.base.DISAPPEAR_BOX_DURATION
 import com.example.decemo.ui.viewmodel.BaseViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -18,9 +19,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment(private val layoutResId: Int) : Fragment() {
-    companion object {
-        private const val DISAPPEAR_BOX_DURATION = 2000L
-    }
 
     private lateinit var successView: TextView
     private lateinit var errorView: TextView

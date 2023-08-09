@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
+import com.example.decemo.base.BASE_IMAGES_URL
 import com.example.decemo.ui.viewmodel.BaseViewModel
 import com.example.decemo.ui.viewmodel.ReservationUpdateViewModel
 import com.google.android.material.datepicker.CalendarConstraints
@@ -22,7 +23,6 @@ import java.util.TimeZone
 
 
 class ReservationUpdateFragment : BaseFragment(R.layout.fragment_reservation_update) {
-    private val URL = "https://bekmen.rs/api/slike/"
     private val viewModel: ReservationUpdateViewModel by viewModel()
     private lateinit var logo: ImageView
     private lateinit var barName: TextView
@@ -84,7 +84,7 @@ class ReservationUpdateFragment : BaseFragment(R.layout.fragment_reservation_upd
 
     private fun loadImage(imageUrl: String) {
         Glide.with(requireContext())
-            .load(URL + imageUrl)
+            .load(BASE_IMAGES_URL + imageUrl)
             .optionalCircleCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(logo)

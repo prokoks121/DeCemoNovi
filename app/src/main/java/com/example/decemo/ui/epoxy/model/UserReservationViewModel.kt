@@ -13,11 +13,11 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
+import com.example.decemo.base.BASE_IMAGES_URL
 
 @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.epoxy_reservation_item)
 abstract class UserReservationViewModel : EpoxyModelWithHolder<UserReservationViewModel.ViewHolder>() {
-    private val URL = "https://bekmen.rs/api/slike/"
 
     @EpoxyAttribute
     lateinit var onReservationIconClick: () -> Unit
@@ -43,7 +43,7 @@ abstract class UserReservationViewModel : EpoxyModelWithHolder<UserReservationVi
         holder.reservationDate.text = reservationDate
         holder.numOfReservations.text = numOfPersons
         Glide.with(context)
-            .load(URL + image)
+            .load(BASE_IMAGES_URL + image)
             .optionalCircleCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.barImage)

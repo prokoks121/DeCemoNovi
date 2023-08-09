@@ -12,11 +12,11 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
+import com.example.decemo.base.BASE_IMAGES_URL
 
 @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.epoxy_galerija_item)
 abstract class GalleryEpoxyModel : EpoxyModelWithHolder<GalleryEpoxyModel.ViewHolder>() {
-    private val URL = "https://bekmen.rs/api/slike/"
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var url: String
@@ -28,7 +28,7 @@ abstract class GalleryEpoxyModel : EpoxyModelWithHolder<GalleryEpoxyModel.ViewHo
         super.bind(holder)
 
         Glide.with(context)
-            .load(URL + url)
+            .load(BASE_IMAGES_URL + url)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.img)
     }

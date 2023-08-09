@@ -2,8 +2,7 @@ package com.example.decemo.token
 
 import android.app.Application
 import android.content.SharedPreferences
-
-const val SP_NAME = "decemo_token_storage"
+import com.example.decemo.base.SP_NAME
 
 fun Application.putString(key: String, value: String) {
     getSpEditor().putString(key, value).apply()

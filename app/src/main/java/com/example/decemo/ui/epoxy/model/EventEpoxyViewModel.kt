@@ -11,6 +11,7 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
+import com.example.decemo.base.BASE_IMAGES_URL
 import com.example.decemo.model.Event
 import com.example.decemo.ui.epoxy.holder.KotlinHolder
 
@@ -23,8 +24,6 @@ abstract class EventEpoxyViewModel : EpoxyModelWithHolder<EventEpoxyViewModel.Ev
     @EpoxyAttribute
     lateinit var onTouch:View.OnClickListener
 
-    private val URL = "https://bekmen.rs/api/slike/"
-
     @EpoxyAttribute
     lateinit var context: Context
 
@@ -33,7 +32,7 @@ abstract class EventEpoxyViewModel : EpoxyModelWithHolder<EventEpoxyViewModel.Ev
         super.bind(holder)
         holder.barName.text = event.name
         Glide.with(context)
-                .load(URL + event.name+ "/Story/" + event.imageUrl)
+                .load(BASE_IMAGES_URL + event.name+ "/Story/" + event.imageUrl)
                 .optionalCircleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.barImage)

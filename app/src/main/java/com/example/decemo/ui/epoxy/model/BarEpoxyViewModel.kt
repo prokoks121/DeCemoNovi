@@ -10,12 +10,12 @@ import com.airbnb.epoxy.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
+import com.example.decemo.base.BASE_IMAGES_URL
 import com.example.decemo.model.Bar
 
 @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.epoxy_lokali_item)
 abstract class BarEpoxyViewModel : EpoxyModelWithHolder<BarEpoxyViewModel.ViewHolder>() {
-    private val URL = "https://bekmen.rs/api/slike/"
 
     @EpoxyAttribute
     lateinit var context: Context
@@ -33,7 +33,7 @@ abstract class BarEpoxyViewModel : EpoxyModelWithHolder<BarEpoxyViewModel.ViewHo
         view.type.text = bar.barType.type
         view.layout.setOnClickListener(myListener)
         Glide.with(context)
-            .load((URL + bar.mainPictureUrl))
+            .load((BASE_IMAGES_URL + bar.mainPictureUrl))
             .optionalCircleCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(view.image)

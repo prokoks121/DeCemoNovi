@@ -11,11 +11,11 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
+import com.example.decemo.base.BASE_IMAGES_URL
 
 @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.epoxy_logo_lokala_item)
 abstract class BarLogoEpoxyModel : EpoxyModelWithHolder<BarLogoEpoxyModel.ViewHolder>() {
-    private val URL = "https://bekmen.rs/api/slike/"
 
     @EpoxyAttribute
     lateinit var context: Context
@@ -28,7 +28,7 @@ abstract class BarLogoEpoxyModel : EpoxyModelWithHolder<BarLogoEpoxyModel.ViewHo
     override fun bind(view: ViewHolder) {
         super.bind(view)
         Glide.with(context)
-            .load(URL + img)
+            .load(BASE_IMAGES_URL + img)
             .optionalCircleCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(view.img)

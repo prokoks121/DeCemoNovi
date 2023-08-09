@@ -10,15 +10,13 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
+import com.example.decemo.base.BASE_IMAGES_URL
 import com.example.decemo.model.Bar
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
 
 class BarBottomView(private val bar: Bar, val view: View, val context: Context, val onViewClick: (Bar) -> Unit) {
     private val sheet: BottomSheetDialog = BottomSheetDialog(context, R.style.SheetDialog)
-
-    // TODO(Da se vuce odkenkuda)
-    private val url = "https://bekmen.rs/api/slike/"
 
     init {
         sheet.setContentView(R.layout.bottom_shape)
@@ -50,7 +48,7 @@ class BarBottomView(private val bar: Bar, val view: View, val context: Context, 
         }
 
         Glide.with(context)
-            .load(url + bar.mainPictureUrl)
+            .load(BASE_IMAGES_URL + bar.mainPictureUrl)
             .optionalCircleCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(image)
@@ -66,7 +64,6 @@ class BarBottomView(private val bar: Bar, val view: View, val context: Context, 
         sheet.show()
     }
 
-    // TODO prebaciti u api
     private fun isOpen(): Boolean {
         val time = Calendar.getInstance()
         val dayInWeek = time.get(Calendar.DAY_OF_WEEK)

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.decemo.R
+import com.example.decemo.base.BASE_IMAGES_URL
 import com.example.decemo.model.BarEvent
 
 class StoryViewFragment(private val barEvent: BarEvent, private val callBacks: StoryController) : Fragment() {
@@ -21,7 +22,6 @@ class StoryViewFragment(private val barEvent: BarEvent, private val callBacks: S
     lateinit var barName: TextView
     lateinit var layout: ConstraintLayout
     var position = 0
-    private val URL = "https://bekmen.rs/api/slike/"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.epoxy_story, container, false)
@@ -53,14 +53,14 @@ class StoryViewFragment(private val barEvent: BarEvent, private val callBacks: S
     private fun setView() {
 
         Glide.with(requireActivity())
-            .load(URL + barEvent.barName + "/Story/" + barEvent.events[position].imageUrl)
+            .load(BASE_IMAGES_URL + barEvent.barName + "/Story/" + barEvent.events[position].imageUrl)
             .transform(CenterCrop())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(storyImageBackground)
 
 
         Glide.with(requireActivity())
-            .load(URL + barEvent.barImageUrl)
+            .load(BASE_IMAGES_URL + barEvent.barImageUrl)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .circleCrop()
             .into(barImage)
