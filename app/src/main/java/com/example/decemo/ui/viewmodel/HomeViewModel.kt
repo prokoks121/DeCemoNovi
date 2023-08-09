@@ -29,15 +29,13 @@ class HomeViewModel(repository: Repository) : BaseViewModel(repository) {
                 repository.getAllBars().onSuccess {
                     _bars.value = it
                 }.onFailure {
-                    //TODO prikaz greske, neki popup
-                    it
+                    showErrorBox(it.message ?: "Doslo je do greske prilikom dovlacenja barova.")
                 }
             } else {
                 repository.getFilteredBarsByType(filterTypes).onSuccess {
                     _bars.value = it
                 }.onFailure {
-                    //TODO prikaz greske, neki popup
-                    it
+                    showErrorBox(it.message ?: "Doslo je do greske prilikom dovlacenja barova.")
                 }
             }
 
@@ -49,8 +47,7 @@ class HomeViewModel(repository: Repository) : BaseViewModel(repository) {
             repository.getAllBarTypes().onSuccess { barType ->
                 barTypes = barType.map { MapFilter(type = it.type, status = true, id = it.id) }.toList()
             }.onFailure {
-                //TODO prikaz greske, neki popup
-                it
+                showErrorBox(it.message ?: "Doslo je do greske prilikom dovlacenja barova.")
             }
         }
     }

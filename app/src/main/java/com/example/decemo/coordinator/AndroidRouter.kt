@@ -15,6 +15,7 @@ import com.example.decemo.ui.view.BarSearchFragment
 import com.example.decemo.ui.view.HomeFragment
 import com.example.decemo.ui.view.LoginFragment
 import com.example.decemo.ui.view.ReservationFragment
+import com.example.decemo.ui.view.ReservationUpdateFragment
 import com.example.decemo.ui.view.SearchFragment
 import com.example.decemo.ui.view.SearchFragmentDirections
 import com.example.decemo.ui.view.StoryFragment
@@ -87,9 +88,17 @@ class AndroidRouter(private val activity: MainActivity) : Router() {
                     onFinish(it.getViewModel())
                 }
             }
-            Destination.RESERVATION ->{
+
+            Destination.RESERVATION -> {
                 navigation.navigate(R.id.action_global_reservationFragment)
                 activity.fragmentCreated<ReservationFragment> {
+                    onFinish(it.getViewModel())
+                }
+            }
+
+            Destination.RESERVATION_UPDATE -> {
+                navigation.navigate(R.id.action_userFragment_to_reservationUpdateFragment)
+                activity.fragmentCreated<ReservationUpdateFragment> {
                     onFinish(it.getViewModel())
                 }
             }

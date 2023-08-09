@@ -13,7 +13,7 @@ class LoginViewModel(repository: Repository) : BaseViewModel(repository) {
             repository.loginUser(email, password).onSuccess {
                 goToUser()
             }.onFailure {
-                // TODO() show popup
+                showErrorBox("Uneti kredencijali su neispravni.")
             }
         }
     }

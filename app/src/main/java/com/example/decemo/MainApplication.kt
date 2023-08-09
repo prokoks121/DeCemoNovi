@@ -9,6 +9,7 @@ import com.example.decemo.ui.viewmodel.module.homeModule
 import com.example.decemo.ui.viewmodel.module.loginModule
 import com.example.decemo.ui.viewmodel.module.registrationModule
 import com.example.decemo.ui.viewmodel.module.reservationModule
+import com.example.decemo.ui.viewmodel.module.reservationUpdateModule
 import com.example.decemo.ui.viewmodel.module.searchModule
 import com.example.decemo.ui.viewmodel.module.storyModule
 import com.example.decemo.ui.viewmodel.module.userModule
@@ -39,7 +40,8 @@ class MainApplication : Application() {
                     userModule,
                     loginModule,
                     registrationModule,
-                    reservationModule
+                    reservationModule,
+                    reservationUpdateModule
                 )
             )
         }

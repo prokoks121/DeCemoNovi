@@ -10,11 +10,16 @@ class UserCoordinator(router: Router) : BaseCoordinator(router) {
         router.navigateTo(Destination.USER) {
             (it as UserViewModel).apply {
                 goToLogin = ::goToLogin
+                goToReservationUpdate = ::goToReservationUpdate
             }
         }
     }
 
     private fun goToLogin() {
         LoginCoordinator(router).navigate()
+    }
+
+    private fun goToReservationUpdate(id: Long) {
+        ReservationUpdateCoordinator(router).navigate(id)
     }
 }

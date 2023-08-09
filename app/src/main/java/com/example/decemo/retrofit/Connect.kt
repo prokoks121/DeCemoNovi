@@ -1,14 +1,18 @@
 package com.example.decemo.retrofit
 
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 object Connect {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val url = "http://10.0.2.2:8080/"
+        val gson = GsonBuilder()
+            .create()
         return Retrofit.Builder().baseUrl(url).client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(GsonConverterFactory.create(gson)).build()
     }
 
     fun provideOkHttpClient(): OkHttpClient {

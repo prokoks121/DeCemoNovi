@@ -20,10 +20,14 @@ class BarSearchViewModel(repository: Repository) : BaseViewModel(repository) {
             if (filter.isNullOrEmpty()) {
                 repository.getAllBars().onSuccess {
                     _bars.value = it
+                }.onFailure {
+                    showErrorDialog(it.message ?: "Doslo je do greske prilikom dovlacenja barova.")
                 }
             } else {
                 repository.getFilteredBars(filter).onSuccess {
                     _bars.value = it
+                }.onFailure {
+                    showErrorDialog(it.message ?: "Doslo je do greske prilikom dovlacenja barova.")
                 }
             }
         }

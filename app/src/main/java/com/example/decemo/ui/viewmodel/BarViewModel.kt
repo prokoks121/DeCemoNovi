@@ -21,6 +21,8 @@ class BarViewModel(repository: Repository) : BaseViewModel(repository) {
         viewModelScope.launch {
             repository.getBar(barId).onSuccess {
                 _bar.value = it
+            }.onFailure {
+                showErrorDialog(it.message ?: "Doslo je do greske prilikom dovlacenja barova.")
             }
         }
     }
@@ -31,7 +33,10 @@ class BarViewModel(repository: Repository) : BaseViewModel(repository) {
 
     override fun onViewCreated() {
         super.onViewCreated()
-        //TODO GO back if barId is null
+        if (barId == null){
+            goBack()
+            return
+        }
         getBar(barId!!)
     }
 }

@@ -35,6 +35,8 @@ class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
         viewModelScope.launch {
             repository.getFilteredBarsByType(listOf(barType.id)).onSuccess {
                 _bars.value = it
+            }.onFailure {
+                showErrorBox(it.message ?: "Doslo je do greske prilikom prikupljanja barova.")
             }
         }
     }
@@ -45,6 +47,8 @@ class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
                 _barTypes.value = it
                 selectedBarType = it.first()
                 getInitialBars()
+            }.onFailure {
+                showErrorBox(it.message ?: "Doslo je do greske prilikom prikupljanja barova.")
             }
         }
     }
@@ -52,6 +56,8 @@ class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
     private suspend fun getInitialBars() {
         repository.getFilteredBarsByType(listOf(selectedBarType.id)).onSuccess {
             _bars.value = it
+        }.onFailure {
+            showErrorBox(it.message ?: "Doslo je do greske prilikom prikupljanja barova.")
         }
     }
 
@@ -59,6 +65,8 @@ class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
         viewModelScope.launch {
             repository.getAllEvents().onSuccess {
                 _events.value = it
+            }.onFailure {
+                showErrorBox(it.message ?: "Doslo je do greske prilikom prikupljanja dogadjaja.")
             }
         }
     }
@@ -73,20 +81,10 @@ class SearchViewModel(repository: Repository) : BaseViewModel(repository) {
     }
 
     fun onEventClick(events: List<BarEvent>, position: Int) {
-        //        val action = SearchFragmentDirections.actionSearchToStoryFragment(
-//            StoryFragment.Data(data.dogadjaji, position)
-//        )
-//        requireView().findNavController().navigate(action)
         goToStory(Pair(events, position))
     }
 
     fun onSearchClick(search: AutoCompleteTextView) {
-        //        val ser = "search"
-//        val extras = FragmentNavigatorExtras(
-//            search to ser
-//        )
-//        val action = SearchFragmentDirections.actionSearchToSearchLokaliFragment(uri = ser)
-//        findNavController().navigate(action, extras)
         goToBarSearch()
     }
 

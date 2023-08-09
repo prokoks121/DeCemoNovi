@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/search_back"
-    tools:context=".ui.view.ReservationFragment">
+    tools:context=".ui.view.ReservationUpdateFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -54,28 +54,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            tools:text="Boho bar"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/slikaLokala" />
-
-        <TextView
-            android:id="@+id/vrstaKafica"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            tools:text="Kafic"
-            android:textColor="#BABABA"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imeKafica" />
+            app:layout_constraintTop_toBottomOf="@id/slikaLokala"
+            tools:text="Boho bar" />
 
         <TextView
             android:id="@+id/email_text"
@@ -93,7 +78,7 @@
             android:textStyle="bold"
             android:translationZ="1dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vrstaKafica" />
+            app:layout_constraintTop_toBottomOf="@id/imeKafica" />
 
         <TextView
             android:id="@+id/datum"
@@ -136,8 +121,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/input_background"
             android:ems="10"
-            android:inputType="number"
             android:hint="2"
+            android:inputType="number"
             android:padding="20dp"
             android:textColor="@color/white"
             android:textColorHint="#99FFFFFF"
@@ -149,19 +134,30 @@
             app:layout_constraintTop_toBottomOf="@id/num_of_reservations" />
 
         <Button
-            android:id="@+id/reservation_submit"
+            android:id="@+id/reservation_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:backgroundTint="@color/naran"
             android:paddingHorizontal="35dp"
             android:paddingVertical="15dp"
-            android:text="Rezervisi"
+            android:text="Azuriraj"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/num_of_reservations_input" />
+        <Button
+            android:id="@+id/reservation_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#BA504D4C"
+            android:paddingHorizontal="35dp"
+            android:paddingVertical="15dp"
+            android:text="Izbisi"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/reservation_update" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </FrameLayout>
