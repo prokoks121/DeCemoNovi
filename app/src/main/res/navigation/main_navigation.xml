@@ -45,7 +45,11 @@
         android:id="@+id/loginFragment"
         android:name="com.example.decemo.ui.view.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" /><action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment><action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
     <fragment
         android:id="@+id/userFragment"
         android:name="com.example.decemo.ui.view.UserFragment"
@@ -66,5 +70,9 @@
         android:name="com.example.decemo.ui.view.ReservationUpdateFragment"
         android:label="fragment_reservation_update"
         tools:layout="@layout/fragment_reservation_update" />
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.decemo.ui.view.RegistrationFragment"
+        android:label="RegistrationFragment" />
 
 </navigation>

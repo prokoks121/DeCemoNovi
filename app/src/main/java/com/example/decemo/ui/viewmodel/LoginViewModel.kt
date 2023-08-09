@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 class LoginViewModel(repository: Repository) : BaseViewModel(repository) {
 
     lateinit var goToUser: () -> Unit
+    lateinit var goToRegistration: () -> Unit
 
     fun onSubmitClick(email: String, password: String) {
         viewModelScope.launch {
@@ -16,5 +17,9 @@ class LoginViewModel(repository: Repository) : BaseViewModel(repository) {
                 showErrorBox("Uneti kredencijali su neispravni.")
             }
         }
+    }
+
+    fun onRegistrationClick() {
+        goToRegistration()
     }
 }

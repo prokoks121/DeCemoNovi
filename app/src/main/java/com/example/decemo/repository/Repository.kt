@@ -16,6 +16,7 @@ interface Repository {
     suspend fun getFilteredBars(filter: String): Result<MutableList<Bar>>
     suspend fun getAllEvents(): Result<MutableList<BarEvent>>
     suspend fun loginUser(email: String, password: String): Result<JwtToken>
+    suspend fun registrationUser(fullName: String, email: String, password: String): Result<JwtToken>
     suspend fun getUser(): Result<User>
     fun logoutUser()
     suspend fun getReservations(): Result<List<Reservation>>

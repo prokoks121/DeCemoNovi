@@ -6,6 +6,7 @@ import com.example.decemo.model.BarEvent
 import com.example.decemo.model.BarType
 import com.example.decemo.model.JwtToken
 import com.example.decemo.model.LoginRequest
+import com.example.decemo.model.RegistrationRequest
 import com.example.decemo.model.Reservation
 import com.example.decemo.model.User
 import com.example.decemo.retrofit.request.ReservationRequest
@@ -94,6 +95,22 @@ class ExternalRepositoryImpl(private val connection: ApiConnection, private val 
     override suspend fun loginUser(email: String, password: String): Result<JwtToken> {
         runCatching {
             val response = connection.login(LoginRequest(email, password))
+            if (response.isSuccessful) {
+                tokenStorage.putAccessToken(response.body()!!.token)
+                tokenStorage.putRefreshToken(response.body()!!.refreshToken)
+                return Result.success(response.body()!!)
+            }
+            return Result.failure(Exception())
+        }.onFailure {
+            return Result.failure(it)
+        }
+        return Result.failure(Exception())
+    }
+
+    override suspend fun registrationUser(fullName: String, email: String, password: String): Result<JwtToken> {
+        runCatching {
+            val registrationRequest = RegistrationRequest(email, password, fullName)
+            val response = connection.registration(registrationRequest)
             if (response.isSuccessful) {
                 tokenStorage.putAccessToken(response.body()!!.token)
                 tokenStorage.putRefreshToken(response.body()!!.refreshToken)

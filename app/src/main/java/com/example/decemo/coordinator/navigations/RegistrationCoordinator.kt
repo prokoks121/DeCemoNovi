@@ -3,23 +3,18 @@ package com.example.decemo.coordinator.navigations
 import com.example.decemo.coordinator.BaseCoordinator
 import com.example.decemo.coordinator.Destination
 import com.example.decemo.coordinator.Router
-import com.example.decemo.ui.viewmodel.LoginViewModel
+import com.example.decemo.ui.viewmodel.RegistrationViewModel
 
-class LoginCoordinator(router: Router) : BaseCoordinator(router) {
+class RegistrationCoordinator(router: Router) : BaseCoordinator(router) {
     override fun navigate(data: Any?) {
-        router.navigateTo(Destination.LOGIN) {
-            (it as LoginViewModel).apply {
+        router.navigateTo(Destination.REGISTRATION) {
+            (it as RegistrationViewModel).apply {
                 goToUser = ::navigateToUser
-                goToRegistration = ::navigateToRegistration
             }
         }
     }
 
     private fun navigateToUser() {
         UserCoordinator(router).navigate()
-    }
-
-    private fun navigateToRegistration() {
-        RegistrationCoordinator(router).navigate()
     }
 }

@@ -6,6 +6,7 @@ import com.example.decemo.model.BarEvent
 import com.example.decemo.model.BarType
 import com.example.decemo.model.JwtToken
 import com.example.decemo.model.LoginRequest
+import com.example.decemo.model.RegistrationRequest
 import com.example.decemo.model.Reservation
 import com.example.decemo.model.User
 import com.example.decemo.retrofit.request.ReservationRequest
@@ -39,7 +40,8 @@ interface ApiConnection {
 
     @POST("api/v1/user/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<JwtToken>
-
+    @POST("api/v1/user/registration")
+    suspend fun registration(@Body registrationRequest: RegistrationRequest): Response<JwtToken>
     @GET("api/v1/user/get")
     suspend fun getUser(@Header("Authorization") authHeader: String): Response<User>
 

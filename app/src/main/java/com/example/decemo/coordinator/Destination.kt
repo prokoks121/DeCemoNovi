@@ -10,5 +10,6 @@ enum class Destination {
     LOGIN,
     USER,
     RESERVATION,
-    RESERVATION_UPDATE
+    RESERVATION_UPDATE,
+    REGISTRATION
 }

@@ -14,6 +14,7 @@ import com.example.decemo.ui.view.BarFragment
 import com.example.decemo.ui.view.BarSearchFragment
 import com.example.decemo.ui.view.HomeFragment
 import com.example.decemo.ui.view.LoginFragment
+import com.example.decemo.ui.view.RegistrationFragment
 import com.example.decemo.ui.view.ReservationFragment
 import com.example.decemo.ui.view.ReservationUpdateFragment
 import com.example.decemo.ui.view.SearchFragment
@@ -102,6 +103,13 @@ class AndroidRouter(private val activity: MainActivity) : Router() {
                     onFinish(it.getViewModel())
                 }
             }
+
+            Destination.REGISTRATION -> {
+                navigation.navigate(R.id.action_loginFragment_to_registrationFragment)
+                activity.fragmentCreated<RegistrationFragment> {
+                    onFinish(it.getViewModel())
+                }
+            }
         }
     }
 
@@ -125,7 +133,7 @@ class AndroidRouter(private val activity: MainActivity) : Router() {
                     }
                 }
             }
-            false
+            true
         }
         navigation.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {

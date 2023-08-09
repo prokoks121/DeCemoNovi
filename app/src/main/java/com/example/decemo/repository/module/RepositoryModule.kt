@@ -5,5 +5,5 @@ import com.example.decemo.repository.Repository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    factory { ExternalRepositoryImpl(get(), get()) }
+    factory<Repository> { ExternalRepositoryImpl(get(), get()) }
 }

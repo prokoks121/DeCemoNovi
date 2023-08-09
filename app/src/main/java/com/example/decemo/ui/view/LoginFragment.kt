@@ -14,15 +14,19 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     private lateinit var emailInput: TextInputEditText
     private lateinit var passwordInput: TextInputEditText
     private lateinit var submitButton: Button
+    private lateinit var registrationButton: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         emailInput = view.findViewById(R.id.login_email)
         passwordInput = view.findViewById(R.id.login_password)
         submitButton = view.findViewById(R.id.login_submit)
-
+        registrationButton = view.findViewById(R.id.registration)
         submitButton.setOnClickListener {
             loginViewModel.onSubmitClick(emailInput.text.toString(), passwordInput.text.toString())
+        }
+        registrationButton.setOnClickListener {
+            loginViewModel.onRegistrationClick()
         }
     }
 
