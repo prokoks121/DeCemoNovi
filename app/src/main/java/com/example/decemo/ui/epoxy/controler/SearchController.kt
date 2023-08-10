@@ -2,7 +2,7 @@ package com.example.decemo.ui.epoxy.controler
 
 import android.content.Context
 import android.view.View
-import com.airbnb.epoxy.Typed3EpoxyController
+import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.carousel
 import com.example.decemo.model.Bar
 import com.example.decemo.model.BarEvent
@@ -14,10 +14,35 @@ import com.example.decemo.ui.epoxy.model.barEpoxyView
 import com.example.decemo.ui.epoxy.model.searchEpoxyView
 import com.example.decemo.ui.epoxy.model.textView
 
-class SearchController(private val context: Context, private val listener: SearchControllerListener) :
-    Typed3EpoxyController<List<Bar>?, List<BarEvent>?, List<BarType>?>() {
+class SearchController(private val context: Context, private val listener: SearchControllerListener) : EpoxyController() {
 
-    override fun buildModels(bars: List<Bar>?, events: List<BarEvent>?, barTypes: List<BarType>?) {
+    private var selectedType = 0
+
+    private fun onSelectType(selectType: Int) {
+        selectedType = selectType
+        requestModelBuild()
+    }
+
+    private var bars: List<Bar> = listOf()
+    private var events: List<BarEvent> = listOf()
+    private var barTypes: List<BarType> = listOf()
+
+    fun setBars(bars: List<Bar>) {
+        this.bars = bars.toMutableList()
+        requestModelBuild()
+    }
+
+    fun setEvents(events: List<BarEvent>) {
+        this.events = events.toMutableList()
+        requestModelBuild()
+    }
+
+    fun setBarTypes(barTypes: List<BarType>) {
+        this.barTypes = barTypes.toMutableList()
+        requestModelBuild()
+    }
+
+    override fun buildModels() {
         searchEpoxyView {
             id("search")
             onClick {
@@ -25,7 +50,7 @@ class SearchController(private val context: Context, private val listener: Searc
             }
         }
 
-        val itemModels = events?.mapIndexed { index, eventDos ->
+        val itemModels = events.mapIndexed { index, eventDos ->
             EventEpoxyViewModel_()
                 .id("event-$index")
                 .event(eventDos.events.first())
@@ -35,26 +60,32 @@ class SearchController(private val context: Context, private val listener: Searc
                 }
         }
 
-        itemModels?.let {
+        itemModels.let {
             carousel {
                 id("events")
                 models(it)
             }
         }
 
-        val barTypeItems = barTypes?.mapIndexed { index, barTypeDto ->
-            BarTypeEpoxyViewModel_()
+        val barTypeItems = barTypes.mapIndexed { index, barTypeDto ->
+            val barType = BarTypeEpoxyViewModel_()
                 .id("bar-types-$index")
                 .barType(barTypeDto)
                 .context(context)
                 //TODO napraviti model koji ima bartype i status
-                .status(true)
                 .myListener(View.OnClickListener {
+                    onSelectType(index)
                     listener.onBarTypeClick(barTypeDto)
                 })
+            if (index == selectedType) {
+                barType.status(true)
+            } else {
+                barType.status(false)
+            }
+            barType
         }
 
-        barTypeItems?.let {
+        barTypeItems.let {
             carousel {
                 id("bar-types")
                 models(it)
@@ -66,7 +97,7 @@ class SearchController(private val context: Context, private val listener: Searc
             text("Lokali")
         }
 
-        bars?.forEachIndexed { index, barDto ->
+        bars.forEachIndexed { index, barDto ->
             barEpoxyView {
                 id("bar-$index")
                 bar(barDto)

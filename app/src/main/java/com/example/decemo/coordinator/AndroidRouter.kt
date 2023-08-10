@@ -91,6 +91,10 @@ class AndroidRouter(private val activity: MainActivity) : Router() {
             }
 
             Destination.RESERVATION -> {
+                if (activity.application.getString("ACCESS_TOKEN").isNullOrEmpty()) {
+                    LoginCoordinator(this).navigate()
+                    return
+                }
                 navigation.navigate(R.id.action_global_reservationFragment)
                 activity.fragmentCreated<ReservationFragment> {
                     onFinish(it.getViewModel())

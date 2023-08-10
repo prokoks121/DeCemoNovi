@@ -12,13 +12,12 @@ import com.airbnb.epoxy.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
+import com.example.decemo.base.ICONS_URL
 import com.example.decemo.model.BarType
 
 @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.epoxy_vrsta_lokala_item)
 abstract class BarTypeEpoxyViewModel : EpoxyModelWithHolder<BarTypeEpoxyViewModel.ViewHolder>() {
-    private val URL = "http://10.0.2.2:8081/downloadFile/"
-//    private val URL = "https://localhost:8081/downloadFile/"
 
     @EpoxyAttribute
     lateinit var barType: BarType
@@ -37,11 +36,9 @@ abstract class BarTypeEpoxyViewModel : EpoxyModelWithHolder<BarTypeEpoxyViewMode
         holder.type.text = barType.type
 
         Glide.with(context)
-            .load(URL + barType.iconUrl)
+            .load(ICONS_URL + barType.iconUrl)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .skipMemoryCache(true)
             .into(holder.img)
-
 
         holder.layout.setOnClickListener(myListener)
         statusCheck(holder)

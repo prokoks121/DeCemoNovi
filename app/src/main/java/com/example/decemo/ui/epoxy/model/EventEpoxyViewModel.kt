@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.decemo.R
 import com.example.decemo.base.BASE_IMAGES_URL
+import com.example.decemo.base.EVENT_URL
 import com.example.decemo.model.Event
 import com.example.decemo.ui.epoxy.holder.KotlinHolder
 
@@ -32,7 +33,7 @@ abstract class EventEpoxyViewModel : EpoxyModelWithHolder<EventEpoxyViewModel.Ev
         super.bind(holder)
         holder.barName.text = event.name
         Glide.with(context)
-                .load(BASE_IMAGES_URL + event.name+ "/Story/" + event.imageUrl)
+                .load(EVENT_URL + event.imageUrl)
                 .optionalCircleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.barImage)

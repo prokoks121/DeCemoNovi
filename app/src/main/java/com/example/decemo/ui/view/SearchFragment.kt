@@ -55,22 +55,18 @@ class SearchFragment : BaseFragment(R.layout.fragment_search), SearchControllerL
     private fun setObservers() {
         viewModel.bars.observe(viewLifecycleOwner) {
             bars = it
-            epoxyControllerNotify()
+            controller.setBars(it)
         }
 
         viewModel.events.observe(viewLifecycleOwner) {
             events = it
-            epoxyControllerNotify()
+            controller.setEvents(it)
         }
 
         viewModel.barTypes.observe(viewLifecycleOwner) {
             barTypes = it
-            epoxyControllerNotify()
+            controller.setBarTypes(it)
         }
-    }
-
-    private fun epoxyControllerNotify() {
-        controller.setData(bars.toMutableList(), events.toMutableList(), barTypes.toMutableList())
     }
 
     private fun setEpoxy(view: View) {

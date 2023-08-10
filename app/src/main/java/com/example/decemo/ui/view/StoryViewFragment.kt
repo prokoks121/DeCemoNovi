@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.decemo.R
 import com.example.decemo.base.BASE_IMAGES_URL
+import com.example.decemo.base.EVENT_URL
 import com.example.decemo.model.BarEvent
 
 class StoryViewFragment(private val barEvent: BarEvent, private val callBacks: StoryController) : Fragment() {
@@ -53,7 +54,7 @@ class StoryViewFragment(private val barEvent: BarEvent, private val callBacks: S
     private fun setView() {
 
         Glide.with(requireActivity())
-            .load(BASE_IMAGES_URL + barEvent.barName + "/Story/" + barEvent.events[position].imageUrl)
+            .load(EVENT_URL + barEvent.events[position].imageUrl)
             .transform(CenterCrop())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(storyImageBackground)
